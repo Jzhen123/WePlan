@@ -1,18 +1,31 @@
 import React from 'react';
 import validate from './utilities/LoginFormValidationRules';
 import useForm from './utilities/useForm';
+import { useAuth } from './utilities/AuthContext';
 
 
-const LoginForm = () => {
+
+const Login = () => {
     const {
         values,
         errors,
         handleChange,
         handleSubmit,
-    } = useForm(login, validate);
+    } = useForm(submitForm, validate);
+    const { login } = useAuth();
 
-    function login() {
-        console.log('No errors, submit callback called!');
+    function submitForm() {
+      const postData = {
+        grant_type: "password",
+        client_id: "2",
+        client_secret: "tK4LYRDN0FbT7svAb3yZXgRjp9ajbas1GWecxkUI",
+        scope: "",
+        username: values.email,
+        password: values.password,
+      }
+      console.log(postData)
+      login(postData)
+      // console.log('No errors, submit callback called!');
     }
 
     return (
@@ -51,4 +64,4 @@ const LoginForm = () => {
     )
 }
 
-export default LoginForm;
+export default Login;

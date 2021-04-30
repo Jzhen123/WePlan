@@ -2,7 +2,7 @@ import './App.css';
 import { AuthProvider } from './utilities/AuthContext';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Register from './Register';
-import LoginForm from './LoginForm';
+import Login from './Login';
 
 function App() {
 
@@ -15,6 +15,10 @@ function App() {
         
           <Route path="/register">
             <Register />
+          </Route>
+
+          <Route path="/login">
+            <Login />
           </Route>
 
         </AuthProvider>
