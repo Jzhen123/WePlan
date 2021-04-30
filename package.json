@@ -17,9 +17,8 @@
     "web-vitals": "^1.1.1"
   },
   "scripts": {
-    "predeploy": "npm install",
-    "build": "react-scripts build",
     "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
