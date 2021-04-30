@@ -11,7 +11,7 @@ export function axiosHelper(props) {
     } = props;
 
     const API_URL = 'https://we-plan-jiayuzheng01421007.codeanyapp.com'
-
+    console.log(API_URL + url)
     return axios({
         method,
         url: API_URL + url,

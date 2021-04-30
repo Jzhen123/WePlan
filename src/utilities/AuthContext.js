@@ -45,6 +45,7 @@ export const AuthHelper = () => {
             successMethod: saveToken,
         })
     }
+
     function logout() {
         axiosHelper({
             url:'api/auth/logout', 
