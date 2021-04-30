@@ -3,6 +3,7 @@ import { axiosHelper } from "./axiosHelper";
 
 const AuthContext = createContext({});
 
+// helper function that exports just the needed/wanted data for the provider
 export const AuthHelper = () => {
 
     const [token, setToken] = useState('')
@@ -55,6 +56,7 @@ export const AuthHelper = () => {
     return { token, register, login, logout }
 }
 
+// custom Provider component
 export const AuthProvider = (props) => {
 
     const initialContext = AuthHelper()
@@ -66,7 +68,8 @@ export const AuthProvider = (props) => {
     )
 }
 
+// creating custom hook
 export const useAuth = () => useContext(AuthContext);
 
-
+// actual context
 export default AuthContext;

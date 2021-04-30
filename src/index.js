@@ -5,6 +5,8 @@ import reportWebVitals from './reportWebVitals';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
+import 'bulma/css/bulma.css';
+
 
 ReactDOM.render(
   <React.StrictMode>
