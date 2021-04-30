@@ -1,19 +1,23 @@
 import React from 'react';
 import validate from './utilities/LoginFormValidationRules';
 import useForm from './utilities/useForm';
+import { useAuth } from './utilities/AuthContext';
+import { useHistory } from "react-router-dom";
 
-
-const Form = () => {
+const Register = () => {
     const {
         values,
         errors,
-        handleBlur,
         handleChange,
         handleSubmit,
-    } = useForm(login, validate);
+    } = useForm(submitForm, validate);
+    const { register } = useAuth();
+    const history = useHistory();
 
-    function login() {
+    function submitForm() {
         console.log('No errors, submit callback called!');
+        register(values);
+        history.push("/");
     }
 
     return (
@@ -26,7 +30,7 @@ const Form = () => {
               <div className="field">
                   <label className="label">Name</label>
                   <div className="control">
-                    <input autoComplete="off" className={`input ${errors.name && 'is-danger'}`} type="name" name="name" onChange={handleChange} onBlur={handleBlur} value={values.name || ''} required />
+                    <input autoComplete="off" className={`input ${errors.name && 'is-danger'}`} type="name" name="name" onChange={handleChange} value={values.name || ''} required />
                     {errors.name && (
                       <p className="help is-danger">{errors.name}</p>
                     )}
@@ -36,7 +40,7 @@ const Form = () => {
                 <div className="field">
                   <label className="label">Email Address</label>
                   <div className="control">
-                    <input autoComplete="off" className={`input ${errors.email && 'is-danger'}`} type="email" name="email" onChange={handleChange} onBlur={handleBlur} value={values.email || ''} required />
+                    <input autoComplete="off" className={`input ${errors.email && 'is-danger'}`} type="email" name="email" onChange={handleChange} value={values.email || ''} required />
                     {errors.email && (
                       <p className="help is-danger">{errors.email}</p>
                     )}
@@ -46,7 +50,7 @@ const Form = () => {
                 <div className="field">
                   <label className="label">Password</label>
                   <div className="control">
-                    <input className={`input ${errors.password && 'is-danger'}`} type="password" name="password" onChange={handleChange} onBlur={handleBlur} value={values.password || ''} required />
+                    <input className={`input ${errors.password && 'is-danger'}`} type="password" name="password" onChange={handleChange} value={values.password || ''} required />
                   </div>
                   {errors.password && (
                     <p className="help is-danger">{errors.password}</p>
@@ -62,4 +66,4 @@ const Form = () => {
     )
 }
 
-export default Form;
+export default Register;
