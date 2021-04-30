@@ -2,6 +2,7 @@
 export default function validate(values) {
     let errors = {};
 
+    // Rules and their error outputs for form inputs
     if (!values.name) {
         errors.name = 'Name is required';
     }
@@ -11,7 +12,7 @@ export default function validate(values) {
     } else if (!/\S+@\S+\.\S+/.test(values.email)) {
         errors.email = 'Email address is invalid';
     }
-    
+
     if (!values.password) {
         errors.password = 'Password is required';
     } else if (values.password.length < 8) {
