@@ -12,7 +12,9 @@ function App() {
     <Router>
       <Switch>
         <AuthProvider>
-        
+          <Route exact path="/">
+            <div>Welcome</div>
+          </Route>
           <Route path="/register">
             <Register />
           </Route>
