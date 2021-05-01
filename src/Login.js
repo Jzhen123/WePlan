@@ -29,10 +29,11 @@ const Login = () => {
     }
 
     return (
-        <div className="section is-fullheight">
-        <div className="container">
-          <div className="column is-4 is-offset-4">
-            <div className="box">
+        // <div className="section is-fullheight">
+        // <div className="container">
+          // <div className="column is-4 is-offset-4">
+            <div className="card p-3">
+            <div className="card-body">
               <form onSubmit={handleSubmit} noValidate>
 
                 <div className="field">
@@ -55,12 +56,12 @@ const Login = () => {
                   )}
                 </div>
 
-                <button type="submit" className="button is-block is-info is-fullwidth">Sign In</button>
+                <button type="submit" className="button is-block is-info is-fullwidth">Log In</button>
               </form>
             </div>
-          </div>
-        </div>
-      </div>
+           </div>
+        /* </div> */
+      /* // </div> */
     )
 }
 
