@@ -1,6 +1,7 @@
 import React from 'react';
 import './UserLanding.css'
 import Login from './Login';
+import { Link } from "react-router-dom";
 
 function UserLanding() {
 
@@ -33,7 +34,7 @@ function UserLanding() {
                             <div className="row justify-content-md-center">
 
                             <div className="col-9">
-                                <div className="card ps-4 pe-4 pb-3 pt-3">
+                                <div className="card ps-4 pe-4 pb-4 pt-4">
                                     <div className="card-body">
                                         <Login />
                                     </div>
@@ -45,11 +46,11 @@ function UserLanding() {
                         {/* Register and Retrieve Password Actions */}
                         <div className="row justify-content-md-center mt-5">
                             <div className="col-5">
-                                <p className="actions">Don't have an account? Sign Up</p>
+                                <p className="actions">Don't have an account? <Link to="/register">Sign Up</Link></p>
                             </div>
                     
                             <div className="col-3 ms-4">
-                                <p className="actions">Forgot Password?</p>
+                                <p className="actions"><Link>Forgot Password?</Link></p>
                             </div>
 
 
