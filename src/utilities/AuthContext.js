@@ -18,7 +18,14 @@ export const AuthHelper = () => {
     }, [])
 
     function saveToken(res) {
-        const APItoken = res.data.data.token || res.data.access_token;
+        console.log(res)
+        let APItoken
+        if (res.config.url === "https://we-plan-jiayuzheng01421007.codeanyapp.com/api/auth/register") {
+            APItoken = res.data.data.token
+        } else if (res.config.url === "https://we-plan-jiayuzheng01421007.codeanyapp.com/oauth/token") {
+            APItoken = res.data.access_token
+        }
+        // const APItoken = res.data.data.token || res.data.access_token;
         setToken(APItoken);
         window.localStorage.setItem('token', APItoken)
     }

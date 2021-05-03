@@ -50,7 +50,7 @@ function UserLanding() {
                             </div>
                     
                             <div className="col-3 ms-4">
-                                <p className="actions"><Link>Forgot Password?</Link></p>
+                                {/* <p className="actions"><Link>Forgot Password?</Link></p> */}
                             </div>
 
 
