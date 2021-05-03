@@ -25,14 +25,9 @@ const Login = () => {
       }
       console.log(postData)
       login(postData)
-      // console.log('No errors, submit callback called!');
     }
 
     return (
-        <div className="section is-fullheight">
-        <div className="container">
-          <div className="column is-4 is-offset-4">
-            <div className="box">
               <form onSubmit={handleSubmit} noValidate>
 
                 <div className="field">
@@ -55,12 +50,8 @@ const Login = () => {
                   )}
                 </div>
 
-                <button type="submit" className="button is-block is-info is-fullwidth">Sign In</button>
+                <button type="submit" className="button is-block is-info is-fullwidth mt-4">Log In</button>
               </form>
-            </div>
-          </div>
-        </div>
-      </div>
     )
 }
 
