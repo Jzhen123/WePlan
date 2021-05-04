@@ -1,11 +1,13 @@
 import React, { createContext, useEffect, useState, useContext } from "react"
 import { axiosHelper } from "./axiosHelper";
+import { useHistory } from "react-router-dom";
 
 const AuthContext = createContext({});
 
 // helper function that exports just the needed/wanted data for the provider
 export const AuthHelper = () => {
 
+    const history = useHistory();
     const [token, setToken] = useState('');
     const [userData, setUserData] = useState({});
 
@@ -14,10 +16,12 @@ export const AuthHelper = () => {
         let lsToken = window.localStorage.getItem('token');
 
         if(lsToken) {
-            setToken(lsToken);
-            index(lsToken);
+            setToken(lsToken); // Set token token to LS token
+            index(lsToken); // Retrieves User Data with LS token
+        } else {
+            history.push("/login"); // If there is not a token, send user to login view
         }
-    }, [])
+    }, [token])
 
     // Saving token in local storage and context
     function saveToken(res) {

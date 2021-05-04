@@ -2,16 +2,17 @@ import React from 'react';
 import validate from '../utilities/LoginFormValidationRules';
 import useForm from '../utilities/useForm';
 import { useAuth } from '../utilities/AuthContext';
-
-
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
+
     const {
         values,
         errors,
         handleChange,
         handleSubmit,
     } = useForm(submitForm, validate);
+    const history = useHistory();
     const { login } = useAuth();
 
     function submitForm() {
@@ -25,6 +26,7 @@ const Login = () => {
       }
       console.log(postData)
       login(postData)
+      history.push("/");
     }
 
     return (
