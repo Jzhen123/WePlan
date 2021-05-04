@@ -44,7 +44,6 @@ export const AuthHelper = () => {
     }
 
     function saveUserData(res) {
-        
         setUserData(res.data);
     }
 
@@ -75,6 +74,7 @@ export const AuthHelper = () => {
             successMethod: destroyToken,
             token
         })
+        .then(history.push("/login"));
     }
 
     function index(token) {
