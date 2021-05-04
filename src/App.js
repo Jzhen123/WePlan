@@ -7,14 +7,12 @@ import Dashboard from './views/Dashboard';
 
 function App() {
 
-
-
   return (
     <Router>
       <Switch>
         <AuthProvider>
 
-          <Route exact path ="/">
+          <Route exact path="/">
             <Dashboard />
           </Route>
 
@@ -25,7 +23,6 @@ function App() {
           <Route path="/register">
             <Register />
           </Route>
-
 
 
         </AuthProvider>

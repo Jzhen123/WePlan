@@ -39,8 +39,9 @@ export const AuthHelper = () => {
 
     // Sets Context token to empty string and deletes LS token
     function destroyToken() {
-        setToken('')
-        window.localStorage.removeItem('token')
+        setToken('');
+        setUserData({});
+        window.localStorage.removeItem('token');
     }
 
     function saveUserData(res) {
