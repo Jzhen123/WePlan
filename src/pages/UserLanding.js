@@ -1,6 +1,6 @@
 import React from 'react';
 import './UserLanding.css'
-import Login from './Login';
+import Login from '../components/Login';
 import { Link } from "react-router-dom";
 
 function UserLanding() {

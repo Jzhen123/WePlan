@@ -1,7 +1,7 @@
 import React from 'react';
-import validate from './utilities/RegisterFormValidationRules';
-import useForm from './utilities/useForm';
-import { useAuth } from './utilities/AuthContext';
+import validate from '../utilities/RegisterFormValidationRules';
+import useForm from '../utilities/useForm';
+import { useAuth } from '../utilities/AuthContext';
 import { useHistory } from "react-router-dom";
 
 const Register = () => {
