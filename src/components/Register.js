@@ -15,9 +15,8 @@ const Register = () => {
   const history = useHistory();
 
   function submitForm() {
-    console.log('No errors, submit callback called!');
     register(values);
-    history.push("/");
+    history.push("/login");
   }
 
   return (

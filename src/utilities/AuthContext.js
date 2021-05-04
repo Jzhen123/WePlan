@@ -6,7 +6,8 @@ const AuthContext = createContext({});
 // helper function that exports just the needed/wanted data for the provider
 export const AuthHelper = () => {
 
-    const [token, setToken] = useState('')
+    const [token, setToken] = useState('');
+    const [userData, setUserData] = useState({});
 
     // retaining user login information
     useEffect(() => {
@@ -14,6 +15,7 @@ export const AuthHelper = () => {
 
         if(lsToken) {
             setToken(lsToken);
+            index(lsToken);
         }
     }, [])
 
@@ -35,6 +37,11 @@ export const AuthHelper = () => {
     function destroyToken() {
         setToken('')
         window.localStorage.removeItem('token')
+    }
+
+    function saveUserData(res) {
+        
+        setUserData(res.data);
     }
 
     // Hits backend route for registering users with user's input. Stores user and returns token
@@ -60,13 +67,22 @@ export const AuthHelper = () => {
     // Hits backend route route for logout with user's token.
     function logout() {
         axiosHelper({
-            url:'api/auth/logout', 
+            url:'/api/auth/logout', 
             successMethod: destroyToken,
             token
         })
     }
 
-    return { token, register, login, logout }
+    function index(token) {
+        axiosHelper({
+            method:'get',
+            url:'/api/auth/user',
+            successMethod: saveUserData,
+            token
+        })
+    }
+
+    return { token, register, login, logout, userData }
 }
 
 // custom Provider component

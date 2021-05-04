@@ -3,6 +3,7 @@ import { AuthProvider } from './utilities/AuthContext';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Register from './components/Register';
 import UserLanding from './views/UserLanding';
+import Dashboard from './views/Dashboard';
 
 function App() {
 
@@ -13,13 +14,19 @@ function App() {
       <Switch>
         <AuthProvider>
 
-          <Route exact path="/">
+          <Route exact path ="/">
+            <Dashboard />
+          </Route>
+
+          <Route path="/login">
             <UserLanding />
           </Route>
 
           <Route path="/register">
             <Register />
           </Route>
+
+
 
         </AuthProvider>
       </Switch>
