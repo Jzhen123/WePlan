@@ -17,24 +17,27 @@ export const AuthHelper = () => {
         }
     }, [])
 
+    // Saving token in local storage and context
     function saveToken(res) {
-        console.log(res)
-        let APItoken
+        console.log(res) // Check response
+        let APItoken;
+        // Sets API token to different values depending on data key(s) and url from result
         if (res.config.url === "https://we-plan-jiayuzheng01421007.codeanyapp.com/api/auth/register") {
             APItoken = res.data.data.token
         } else if (res.config.url === "https://we-plan-jiayuzheng01421007.codeanyapp.com/oauth/token") {
             APItoken = res.data.access_token
         }
-        // const APItoken = res.data.data.token || res.data.access_token;
         setToken(APItoken);
         window.localStorage.setItem('token', APItoken)
     }
 
+    // Sets Context token to empty string and deletes LS token
     function destroyToken() {
         setToken('')
         window.localStorage.removeItem('token')
     }
 
+    // Hits backend route for registering users with user's input. Stores user and returns token
     function register(registrationData) {
         axiosHelper({
             data: registrationData,
@@ -44,6 +47,7 @@ export const AuthHelper = () => {
         })
     }
 
+    // Hits backend route for logging in users with user's input. Returns token
     function login(loginData) {
         axiosHelper({
             data: loginData,
@@ -53,6 +57,7 @@ export const AuthHelper = () => {
         })
     }
 
+    // Hits backend route route for logout with user's token.
     function logout() {
         axiosHelper({
             url:'api/auth/logout', 
