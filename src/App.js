@@ -2,7 +2,7 @@ import './App.css';
 import { AuthProvider } from './utilities/AuthContext';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Register from './components/Register';
-import UserLanding from './pages/UserLanding';
+import UserLanding from './views/UserLanding';
 
 function App() {
 
