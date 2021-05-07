@@ -33,26 +33,26 @@ const Login = () => {
     <form className="row g-0" onSubmit={handleSubmit} novalidate>
 
       <label for="validationLoginEmail" className="form-label ">Your Email</label>
-      <div className="input-group mb-3">
+      <div className="input-group mb-2">
         <span class="input-group-text" id="inputGroupPrepend1">@</span>
-        <div className="col-10">
+        {/* <div className="col-10"> */}
           <input autoComplete="off" className="form-control" onChange={handleChange} value={values.email || ''} type="email" name="email" placeholder="e.g. jimmy@noneyabuisness.com" required />
-        </div>
+        {/* </div> */}
         {errors.email && (
-          <p className="help mt-1 mb-0" style={{ color: 'red' }}>{errors.email}</p>
+          <p className="mt-1 mb-0 col-12" style={{ color: 'red' }}>{errors.email}</p>
         )}
       </div>
 
       <label for="validationLoginPassword" className="form-label">Your Password</label>
-      <div className="input-group mb-3 has-validation">
+      <div className="input-group mb-2 has-validation">
         <span class="input-group-text" id="inputGroupPrepend2">@</span>
-        <div className="col-10">
+        {/* <div className="col-10"> */}
           <input className="form-control" type="password" name="password" onChange={handleChange} value={values.password || ''} placeholder="Enter password" required />
         </div>
         {errors.password && (
-          <p className="help mt-1 mb-0" style={{ color: 'red' }}>{errors.password}</p>
+          <p className="help mt-1 mb-0 col-12" style={{ color: 'red' }}>{errors.password}</p>
         )}
-      </div>
+      {/* </div> */}
 
       <button type="submit" className="btn btn-primary mt-2">Log In</button>
     </form>
