@@ -46,6 +46,7 @@ export const AuthHelper = () => {
 
     function saveUserData(res) {
         setUserData(res.data);
+        console.log(res.data)
     }
 
     // Hits backend route for registering users with user's input. Stores user and returns token
