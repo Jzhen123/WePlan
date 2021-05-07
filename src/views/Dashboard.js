@@ -2,9 +2,13 @@ import React from 'react';
 import { useAuth } from '../utilities/AuthContext';
 import Navbar from '../components/Navbar';
 
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid'
+
 function Dashboard() {
 
     const { userData } = useAuth();
+
 
     return (
         <>
@@ -15,12 +19,12 @@ function Dashboard() {
                         <>
                             <h1 className="fs-1">Welcome {userData.name}!</h1>
 
-                            <h1 className="fs-1">Your Email is - {userData.email}</h1>
-
-                            <h1 className="fs-1">Your ID is - {userData.id}</h1>
 
 
-
+                            <FullCalendar
+                                plugins={[dayGridPlugin]}
+                                initialView="dayGridMonth"
+                            />
 
 
 
