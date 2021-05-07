@@ -1,0 +1,29 @@
+/* .fc-toolbar { */
+    /* max-height: 3vh; */
+    /* position: fixed; */
+    /* top: 2.5vh;
+    left: 45vw; */
+    /* margin-top: 1vh; */
+/* } */
+
+.fc {
+    max-width: 81vw;
+    max-height: 93vh;
+    /* margin-top: 0; */
+    /* margin: auto; */
+ }
+
+ /* .fc-toolbar-title {
+    position: relative;
+ }
+
+ .fc-today-button {
+    position: absolute;
+    right: 630px;
+    top: -15px;
+ }
+
+ .fc-button-group {
+    position: absolute;
+    right: 510px;
+ } */
