@@ -6,55 +6,57 @@ import { useHistory } from "react-router-dom";
 
 const Login = () => {
 
-    const {
-        values,
-        errors,
-        handleChange,
-        handleSubmit,
-    } = useForm(submitForm, validate);
-    const history = useHistory();
-    const { login } = useAuth();
+  const {
+    values,
+    errors,
+    handleChange,
+    handleSubmit,
+  } = useForm(submitForm, validate);
+  const history = useHistory();
+  const { login } = useAuth();
 
-    function submitForm() {
-      const postData = {
-        grant_type: "password",
-        client_id: "2",
-        client_secret: "tK4LYRDN0FbT7svAb3yZXgRjp9ajbas1GWecxkUI",
-        scope: "",
-        username: values.email,
-        password: values.password,
-      }
-      console.log(postData)
-      login(postData)
-      history.push("/");
+  function submitForm() {
+    const postData = {
+      grant_type: "password",
+      client_id: "2",
+      client_secret: "tK4LYRDN0FbT7svAb3yZXgRjp9ajbas1GWecxkUI",
+      scope: "",
+      username: values.email,
+      password: values.password,
     }
+    console.log(postData)
+    login(postData)
+    history.push("/");
+  }
 
-    return (
-              <form onSubmit={handleSubmit} noValidate>
+  return (
+    <form className="row g-0" onSubmit={handleSubmit} novalidate>
 
-                <div className="field">
-                  <label className="label">Email Address</label>
-                  <div className="control">
-                    <input autoComplete="off" className={`input ${errors.email && 'is-danger'}`} type="email" name="email" onChange={handleChange} value={values.email || ''} required />
-                    {errors.email && (
-                      <p className="help is-danger">{errors.email}</p>
-                    )}
-                  </div>
-                </div>
+      <label for="validationLoginEmail" className="form-label ">Your Email</label>
+      <div className="input-group mb-3">
+        <span class="input-group-text" id="inputGroupPrepend1">@</span>
+        <div className="col-10">
+          <input autoComplete="off" className="form-control" onChange={handleChange} value={values.email || ''} type="email" name="email" placeholder="e.g. jimmy@noneyabuisness.com" required />
+        </div>
+        {errors.email && (
+          <p className="help mt-1 mb-0" style={{ color: 'red' }}>{errors.email}</p>
+        )}
+      </div>
 
-                <div className="field">
-                  <label className="label">Password</label>
-                  <div className="control">
-                    <input className={`input ${errors.password && 'is-danger'}`} type="password" name="password" onChange={handleChange} value={values.password || ''} required />
-                  </div>
-                  {errors.password && (
-                    <p className="help is-danger">{errors.password}</p>
-                  )}
-                </div>
+      <label for="validationLoginPassword" className="form-label">Your Password</label>
+      <div className="input-group mb-3 has-validation">
+        <span class="input-group-text" id="inputGroupPrepend2">@</span>
+        <div className="col-10">
+          <input className="form-control" type="password" name="password" onChange={handleChange} value={values.password || ''} placeholder="Enter password" required />
+        </div>
+        {errors.password && (
+          <p className="help mt-1 mb-0" style={{ color: 'red' }}>{errors.password}</p>
+        )}
+      </div>
 
-                <button type="submit" className="button is-block is-info is-fullwidth mt-4">Log In</button>
-              </form>
-    )
+      <button type="submit" className="btn btn-primary mt-2">Log In</button>
+    </form>
+  )
 }
 
 export default Login;
