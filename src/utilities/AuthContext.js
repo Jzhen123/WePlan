@@ -55,7 +55,8 @@ export const AuthHelper = () => {
         axiosHelper({
             data: registrationData,
             method:'post', 
-            url:'/api/auth/register', 
+            url:'/api/auth/register',
+            successMethod: saveToken 
         })
     }
 

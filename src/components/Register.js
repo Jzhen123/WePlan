@@ -16,7 +16,7 @@ const Register = () => {
 
   function submitForm() {
     register(values);
-    history.push("/login");
+    history.push("/");
   }
 
   return (
