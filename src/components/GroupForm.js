@@ -2,7 +2,7 @@ import React from 'react';
 import validate from '../utilities/GroupFormValidation';
 import useForm from '../utilities/useForm';
 import { useAuth } from '../utilities/AuthContext';
-import { useHistory } from "react-router-dom";
+import { useGroup } from "../utilities/GroupContext"
 
 const GroupForm = () => {
 
@@ -12,7 +12,8 @@ const GroupForm = () => {
         handleChange,
         handleSubmit,
     } = useForm(submitForm, validate);
-    const { create, userData} = useAuth();
+    const { userData } = useAuth();
+    const { createGroup } = useGroup();
 
     function submitForm() {
         const postData = {
@@ -23,7 +24,7 @@ const GroupForm = () => {
             active: '1'
         }
         console.log(postData)
-        create(postData)
+        createGroup(postData)
     }
 
     return (
