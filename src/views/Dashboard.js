@@ -3,7 +3,7 @@ import { useAuth } from '../utilities/AuthContext';
 import Navbar from '../components/Navbar';
 
 import FullCalendar from '@fullcalendar/react'
-import dayGridPlugin from '@fullcalendar/daygrid'
+import timeGridPlugin from '@fullcalendar/timegrid'
 
 function Dashboard() {
 
@@ -24,16 +24,16 @@ function Dashboard() {
                                         <h3>Welcome {userData.name}!</h3>
                                         <h3><br></br> Your Groups:</h3><br></br>
                                         {
-                                            userData.groups.map(group => {
-                                                return <h5>{group.name}</h5>
+                                            userData.groups.map((group, index) => {
+                                                return <h5 key={index}>{group.name}</h5>
                                             })
                                         }
                                     </div>
                                 </div>
                                 <div className="col-10">
                                     <FullCalendar
-                                        plugins={[dayGridPlugin]}
-                                        initialView="dayGridMonth"
+                                        plugins={[timeGridPlugin]}
+                                        initialView="timeGridWeek"
                                     />
                                 </div>
                             </div>

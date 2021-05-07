@@ -4,7 +4,7 @@ import useForm from '../utilities/useForm';
 import { useAuth } from '../utilities/AuthContext';
 import { useHistory } from "react-router-dom";
 
-const GroupForm = () => {
+const GroupForm = (props) => {
 
     const {
         values,
@@ -13,7 +13,7 @@ const GroupForm = () => {
         handleSubmit,
     } = useForm(submitForm, validate);
     const history = useHistory();
-    const { create, userData } = useAuth();
+    const { create, userData} = useAuth();
 
     function submitForm() {
         const postData = {
@@ -25,10 +25,12 @@ const GroupForm = () => {
         }
         console.log(postData)
         create(postData)
+        // console.log("Pushing")
+        // history.push("/")
     }
 
     return (
-        <form className="row g-0" onSubmit={handleSubmit} novalidate>
+        <form className="row g-0" onSubmit={handleSubmit} noValidate>
 
             <label for="validationLoginEmail" className="form-label">Group Name</label>
             <div className="input-group mb-2">

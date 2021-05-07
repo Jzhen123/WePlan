@@ -16,6 +16,7 @@ export const AuthHelper = () => {
         let lsToken = window.localStorage.getItem('token');
 
         if(lsToken) {
+            console.log("getting User Data")
             setToken(lsToken); // Set token token to LS token
             index(lsToken); // Retrieves User Data with LS token
         } else {
@@ -45,8 +46,8 @@ export const AuthHelper = () => {
     }
 
     function saveUserData(res) {
-        setUserData(res.data);
         console.log(res.data)
+        setUserData(res.data);
     }
 
     // Hits backend route for registering users with user's input. Stores user and returns token
@@ -55,7 +56,6 @@ export const AuthHelper = () => {
             data: registrationData,
             method:'post', 
             url:'/api/auth/register', 
-            successMethod: saveToken,
         })
     }
 
@@ -79,9 +79,9 @@ export const AuthHelper = () => {
         .then(history.push("/login"));
     }
 
-    function index(token) {
+    function index() {
+        console.log("Index")
         axiosHelper({
-            method:'get',
             url:'/api/auth/user',
             successMethod: saveUserData,
             token
@@ -93,7 +93,7 @@ export const AuthHelper = () => {
         data: groupData,
         method: 'post',
         url: '/api/group/create',
-        successMethod: saveUserData
+        successMethod: index
         })
     }
 

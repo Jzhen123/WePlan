@@ -1,10 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useAuth } from '../utilities/AuthContext';
 import GroupForm from './GroupForm';
+import Modal from './Modal';
 
 function Navbar() {
 
     const { logout } = useAuth();
+    const [modalVisible, setModalVisible] = useState(false);
+
+    const showModal = () => {
+        console.log(modalVisible)
+        setModalVisible(true)
+    }
+
+    const closeModal = () => {
+        setModalVisible(false)
+    }
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -22,23 +33,17 @@ function Navbar() {
                             {/* <a className="nav-link" href="#">Features</a> */}
                         </li>
                         <li className="nav-item">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <button type="button" className="btn btn-primary" onClick={showModal}>
                                 Create Group
                             </button>
 
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h3 class="modal-title" id="exampleModalLabel">Create Group</h3>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <GroupForm />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {
+                                modalVisible ?
+                                    <Modal closeModal={closeModal}>
+                                        <GroupForm />
+                                    </Modal>
+                                    : null
+                            }
 
                         </li>
                         <li className="nav-item dropdown">
