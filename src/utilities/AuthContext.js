@@ -88,7 +88,16 @@ export const AuthHelper = () => {
         })
     }
 
-    return { token, register, login, logout, userData }
+    function create(groupData) {
+        axiosHelper({
+        data: groupData,
+        method: 'post',
+        url: '/api/group/create',
+        successMethod: saveUserData
+        })
+    }
+
+    return { token, create, register, login, logout, userData }
 }
 
 // custom Provider component

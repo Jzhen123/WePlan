@@ -22,10 +22,15 @@ function Dashboard() {
                                 <div className="col-2 mt-1">
                                     <div className="card" style={{ height: '93vh' }}>
                                         <h3>Welcome {userData.name}!</h3>
+                                        <h3><br></br> Your Groups:</h3><br></br>
+                                        {
+                                            userData.groups.map(group => {
+                                                return <h5>{group.name}</h5>
+                                            })
+                                        }
                                     </div>
                                 </div>
                                 <div className="col-10">
-
                                     <FullCalendar
                                         plugins={[dayGridPlugin]}
                                         initialView="dayGridMonth"
