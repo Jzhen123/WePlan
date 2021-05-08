@@ -1,58 +1,46 @@
 import React, { useReducer } from 'react';
+import formReducer from './utilities/reducers/formReducer';
 
-function init(initialCount) {
-    return {
-        test: "",
-        values: {
-            count1: initialCount,
-            count2: initialCount,
-            count3: initialCount
-        }
-    }
-};
 
-function reducer(state, action) {
-    let yo = { // Represents Form input values object
-        values: {
-            count1: 0,
-            count2: 0,
-            count3: 0
-        }
-    }
-    switch (action.type) {
-        case 'increment':   
-            return {
-                values: {
-                    count1: state.values.count1 + 1,
-                    count2: state.values.count2 + 2,
-                    count3: state.values.count3 + 3
-                }
-            };
-        case 'decrement':
-            return { count: state.count - 1 };
-        case 'reset':
-            return { values: yo.values } 
-
-        default:
-            throw new Error();
-    }
+const initialFormState = {
+    name: "",
+    email: "",
+    password: "",
+    hasConsented: false,
 }
 
-function Sandbox({ initialCount }) {
-    const [state, dispatch] = useReducer(reducer, initialCount, init);
+function Sandbox() {
+    const [formState, dispatch] = useReducer(formReducer, initialFormState);
+
+    const handleTextChange = (e) => {
+        dispatch({
+            formType: "REGISTER",
+            type: "HANDLE INPUT TEXT",
+            field: e.target.name,
+            payload: e.target.value,
+        })
+        console.log("hi")
+        console.log(formState)
+    }
 
     return (
-        <>
-            Count 1: {state.values.count1} <br></br>
-            Count 2: {state.values.count2} <br></br>
-            Count 3: {state.values.count3} <br></br>
-            <button
-                onClick={() => dispatch({ type: 'reset', payload: initialCount })}>
-                Reset
-            </button>
-            <button onClick={() => dispatch({ type: 'decrement' })}>-</button>
-            <button onClick={() => dispatch({ type: 'increment' })}>+</button>
-        </>
+        <form>
+            <label>Name: </label>
+            <input type="text" name="name" value={formState.name}  onChange={(e) => handleTextChange(e)} />
+            <br></br>
+
+            <label>Email: </label>
+            <input type="text" name="email" value={formState.email} onChange={(e) => handleTextChange(e)} />
+            <br></br>
+            
+            <label>Password: </label>
+            <input type="text" name="password" value={formState.password} onChange={(e) => handleTextChange(e)} />
+            <br></br>
+            
+            <label>Consent to terms and conditions: </label>
+            <input type="checkbox" checked={formState.hasConsented} onChange={() => dispatch({ formType: "REGISTER", type: "TOGGLE CONSENT" })} />
+            
+        </form>
     );
 }
 

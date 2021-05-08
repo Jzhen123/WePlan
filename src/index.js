@@ -12,7 +12,7 @@ ReactDOM.render(
   <React.StrictMode>
     {/* <App /> */}
 
-    <Sandbox initialCount={0}/>
+    <Sandbox />
   </React.StrictMode>,
   document.getElementById('root')
 );
