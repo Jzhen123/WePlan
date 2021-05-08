@@ -1,32 +1,44 @@
 import { axiosHelper } from "./axiosHelper";
 
 function init(initialFormType) {
-    return {
-        formData: {
+    return formData = {
             formType: initialFormType,
-            values: "",
+            values: {},
             errors: {},
             isSubmitting: false
         }
-    }
+    
 }
 
-function reducer(state, action) {
+function Counter({initialFormType}) {
+    const [state, dispatch] = useReducer(reducer, initialFormType, init);
+    return (
+      <>
+        Count: {state.count}
+        <button onClick={() => dispatch({type: 'reset', payload: initialCount})}> Reset </button>
+        <button onClick={() => dispatch({type: 'decrement'})}>-</button>
+      </>
+    );
+  }
+
+function formReducer(state, action) {
     switch (action.type) {
         case 'REGISTER':
 
             switch (action.function) {
-                case 'init':
+                case 'init': // Initializing Register specific object keys/values for formData 
                     formData.values = {
                         name: "",
                         email: "",
                         password: ""
                     }
 
-                case 'onChange':
-                    formData.values.name = state.values.name
+                case 'onChange': // Storing current form values and then "frontend" error checking for simple rules/validation
+                    formData.values.name = state.values.name 
                     formData.values.email = state.values.email
                     formData.values.password = state.values.password
+
+                    { formData.values } 
 
                     if (!state.values.name) {
                         formData.errors.name = 'Name is required';

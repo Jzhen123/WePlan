@@ -5,11 +5,14 @@ import 'bootstrap/dist/js/bootstrap.js';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
+import Sandbox from './Sandbox';
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    {/* <App /> */}
+
+    <Sandbox initialCount={0}/>
   </React.StrictMode>,
   document.getElementById('root')
 );
