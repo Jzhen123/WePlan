@@ -8,10 +8,11 @@ const useForm = (callback, validate) => {
 
     // Whenever errors or isSubmitting is updated, use callback function for submitting form
     useEffect(() => {
+        setErrors(validate(values));
         if (Object.keys(errors).length === 0 && isSubmitting) { // No errors and User is submitting
-        callback();
+            callback();
         }
-    }, [errors, isSubmitting]);
+    }, [values, isSubmitting]);
 
     const handleSubmit = (event) => {
         if (event) event.preventDefault();
@@ -20,9 +21,8 @@ const useForm = (callback, validate) => {
     };
 
     // Setting values and checking for errors onChange
-    const handleChange = (event) => { 
+    const handleChange = (event) => {
         event.persist();
-        setErrors(validate(values));
         setValues(values => ({ ...values, [event.target.name]: event.target.value }));
     };
 
