@@ -14,16 +14,28 @@ export default function formReducer(state, action) {
     switch (action.formType) {
         case 'REGISTER':
             switch (action.type) {
-                case "HANDLE INPUT TEXT":
-                    return {
-                        ...state,
-                        [action.field]: action.payload,
-                    };
-                case "TOGGLE CONSENT":
-                    return {
-                        ...state,
-                        hasConsented: !state.hasConsented,
-                    };
+                case "onChange":
+                    let tempState = { ...state }
+                    tempState.errors = {};
+                    tempState.values[action.field] = action.payload
+
+                    switch (action.field) {
+                        case "email":
+                            if (!/\S+@\S+\.\S+/.test(action.payload)) {
+                                tempState.errors[action.field] = 'Email address format is invalid';
+                            }
+                        case "password":
+                            if (action.payload.length < 8) {
+                                tempState.errors[action.field] = 'Password must be 8 or more characters';
+                            }
+                    }
+
+                    return tempState;
+                // case "TOGGLE CONSENT":
+                //     return {
+                //         ...state,
+                //         hasConsented: !state.hasConsented,
+                //     };
                 default:
                     return state;
             }
