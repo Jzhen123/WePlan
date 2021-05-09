@@ -52,9 +52,11 @@ export default function formReducer(state, action) {
                     }
                     if (!tempState.values.password) {
                         tempState.errors.password = "Password is required"
+                    } else if (tempState.values.password.length < 8) {
+                        tempState.errors.password = 'Password must be 8 or more characters'
                     }
 
-                    if (Object.keys(tempState.errors).length === 0) {
+                    if (Object.keys(tempState.errors).length === 0 && tempState.values.email.length > 4) {
                         tempState.canSubmit = true
                     }
                     return tempState
