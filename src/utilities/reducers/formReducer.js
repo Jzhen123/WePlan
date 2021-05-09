@@ -1,7 +1,7 @@
-// import { axiosHelper } from "./axiosHelper";
-
+import { useAuth } from "../AuthContext";
 
 export default function formReducer(state, action) {
+    let tempState = { ...state }
     // function init({initialFormType, }) {
     //     return {
     //         type: initialFormType,
@@ -15,27 +15,50 @@ export default function formReducer(state, action) {
         case 'REGISTER':
             switch (action.type) {
                 case "onChange":
-                    let tempState = { ...state }
                     tempState.errors = {};
                     tempState.values[action.field] = action.payload
 
                     switch (action.field) {
-                        case "email":
-                            if (!/\S+@\S+\.\S+/.test(action.payload)) {
-                                tempState.errors[action.field] = 'Email address format is invalid';
-                            }
+                        // case "email":
+                        //     if (!/\S+@\S+\.\S+/.test(action.payload)) {
+                        //         tempState.errors[action.field] = 'Email address format is invalid';
+                        //         break;
+                        //     }
                         case "password":
                             if (action.payload.length < 8) {
                                 tempState.errors[action.field] = 'Password must be 8 or more characters';
                             }
+                            if (action.payload.length === 0) {
+                                tempState.errors[action.field] = null
+                            }
+                    }
+                    return tempState;
+
+                case "onSubmit":
+                    tempState = { ...state }
+                    tempState.errors = {};
+
+                    if (!tempState.values.name) {
+                        tempState.errors.name = 'Name is required';
+                    }
+                    if (!tempState.values.email) {
+                        tempState.errors.email = "Email address is required";
+                    } else if (!/\S+@\S+\.\S+/.test(tempState.values.email)) {
+                        tempState.errors.email = "Email address format is invalid";
+                    } else {
+                        /* axiosHelper({}) Check if email is not already being used
+                                failureMethod: add some error
+                        */
+                    }
+                    if (!tempState.values.password) {
+                        tempState.errors.password = "Password is required"
                     }
 
-                    return tempState;
-                // case "TOGGLE CONSENT":
-                //     return {
-                //         ...state,
-                //         hasConsented: !state.hasConsented,
-                //     };
+                    if (Object.keys(tempState.errors).length === 0) {
+                        tempState.canSubmit = true
+                    }
+                    return tempState
+
                 default:
                     return state;
             }
