@@ -41,7 +41,7 @@ const Login = () => {
 
   return (
       <div className="row justify-content-md-center">
-        <div className="col-10 card p-5">
+        <div className="col-10 card p-4">
           <h2 className="mb-2">Start Planning!</h2>
           <form onSubmit={handleSubmit} >
 
@@ -52,7 +52,7 @@ const Login = () => {
             </div>
 
             <div class="form-floating mb-3 col-12">
-              <input type="text" class="form-control" name="password" onChange={(e) => handleChange(e)} id="passwordInput" placeholder="Password" />
+              <input type="password" class="form-control" name="password" onChange={(e) => handleChange(e)} id="passwordInput" placeholder="Password" />
               <label for="passwordInput">Password</label>
               <div style={{ color: '#cc0000', height: '4vh', visibility: formState.errors.password ? 'visible' : 'hidden' }}>{formState.errors.password}</div>
             </div>

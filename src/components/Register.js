@@ -40,10 +40,8 @@ function Register() {
     }
 
     return (
-        <div className="container-fluid">
-
-            <div className="row justify-content-md-center">
-                <div className="col-4 card p-5">
+            <div className="row justify-content-md-center pt-5">
+                <div className="col-10 card p-5">
                     <h1 className="mb-2">Create your account</h1>
                     <form onSubmit={handleSubmit} >
                         <div class="form-floating mb-3 col-12">
@@ -68,7 +66,6 @@ function Register() {
                     </form>
                 </div>
             </div>
-        </div>
     );
 }
 
