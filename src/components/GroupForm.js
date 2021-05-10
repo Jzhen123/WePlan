@@ -1,63 +1,77 @@
-import React from 'react';
+import React, { useReducer, useEffect } from 'react';
 import { useAuth } from '../utilities/AuthContext';
 import { useGroup } from "../utilities/GroupContext"
+import formReducer from '../utilities/reducers/formReducer';
 
-// const GroupForm = () => {
 
-//     const {
-//         values,
-//         errors,
-//         handleChange,
-//         handleSubmit,
-//     } = useForm(submitForm, validate);
-//     const { userData } = useAuth();
-//     const { createGroup } = useGroup();
+const GroupForm = () => {
 
-//     function submitForm() {
-//         const postData = {
-//             created_by_user_id: userData.id,
-//             name: values.name,
-//             privacy: values.privacy,
-//             type_id: values.type,
-//             active: '1'
-//         }
-//         console.log(postData)
-//         createGroup(postData)
-//     }
+    const { userData } = useAuth();
+    const initialFormState = {
+        formType: "CREATE GROUP",
+        values: {
+            created_by_user_id: userData.id,
+            name: "",
+            type_id: "",
+            privacy: "Public",
+            active: '1',
+        },
+        errors: {},
+        canSubmit: false,
+    }
 
-//     return (
-//         <form className="row g-0" onSubmit={handleSubmit} noValidate>
+    const { createGroup } = useGroup();
+    const [formState, dispatch] = useReducer(formReducer, initialFormState);
 
-//             <label for="validationLoginEmail" className="form-label">Group Name</label>
-//             <div className="input-group mb-2">
-//                 <span class="input-group-text" id="inputGroupPrepend1">@</span>
-//                 <input autoComplete="off" className="form-control" onChange={handleChange} value={values.name || ''} type="name" name="name" placeholder="e.g. Awesome Inc" required />
-//                 {errors.name && (
-//                     <p className="mt-1 mb-0 col-12" style={{ color: 'red' }}>{errors.name}</p>
-//                 )}
-//             </div>
+    useEffect(() => {
+        if (formState.canSubmit === true) {
+            createGroup(formState)
+        }
+    }, [formState])
 
-//             <label for="validationLoginPassword" className="form-label">Group Privacy</label>
-//             <div className="input-group mb-2 has-validation">
-//                 <span class="input-group-text" id="inputGroupPrepend2">@</span>
-//                 <input className="form-control" type="privacy" name="privacy" onChange={handleChange} value={values.privacy || ''} placeholder="Public/Private" required />
-//             </div>
-//             {errors.privacy && (
-//                 <p className="help mt-1 mb-0 col-12" style={{ color: 'red' }}>{errors.privacy}</p>
-//             )}
+    const handleChange = (e) => {
+        dispatch({ formType: formState.formType, type: "onChange", field: e.target.name, payload: e.target.value, })
+    }
 
-//             <label for="validationLoginPassword" className="form-label">Group Type</label>
-//             <div className="input-group mb-2 has-validation">
-//                 <span class="input-group-text" id="inputGroupPrepend2">@</span>
-//                 <input className="form-control" type="type" name="type" onChange={handleChange} value={values.type || ''} placeholder="Enter Type" required />
-//             </div>
-//             {errors.type && (
-//                 <p className="help mt-1 mb-0 col-12" style={{ color: 'red' }}>{errors.type}</p>
-//             )}
+    const handleSubmit = (e) => {
+        if (e) e.preventDefault();
+        dispatch({ formType: formState.formType, type: "onSubmit", })
+    }
 
-//             <button type="submit" className="btn btn-primary mt-2">Create</button>
-//         </form>
-//     )
-// }
+    return (
+        <div className="row justify-content-md-center">
+            <div className="col-5 card p-5">
+                <h1 className="mb-5 text-center">What is Your Group for?</h1>
+                <form onSubmit={handleSubmit} >
+                    <div className="form-floating mb-3">
+                        <input type="text" className="form-control" name="name" onChange={(e) => handleChange(e)} id="nameInput" placeholder="name@example.com" />
+                        <label for="nameInput">Name</label>
+                        <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.name ? 'visible' : 'hidden' }}>{formState.errors.name}</div>
+                    </div>
 
-// export default GroupForm;
+                    <div className="row">
+                        <div className="form-floating col-10">
+                            <select className="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                <option selected>Friends</option>
+                                <option value="1">Friends</option>
+                                <option value="2">Work</option>
+                                <option value="3">Family</option>
+                                <option value="3">Roommates</option>
+                            </select>
+                            <label for="floatingSelect">&nbsp;&nbsp;&nbsp;&nbsp;Choose Group Type</label>
+                        </div>
+
+                        <div className="form-check form-switch col-2 pt-3">
+                            <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+                            <label className="form-check-label" for="flexSwitchCheckDefault">Private?</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" className="btn btn-primary col-12 mt-5">Create Group</button>
+                </form>
+            </div>
+        </div>
+    )
+}
+
+export default GroupForm;

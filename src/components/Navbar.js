@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
 import { useAuth } from '../utilities/AuthContext';
-// import GroupForm from './GroupForm';
+import GroupForm from './GroupForm';
 import Modal from '../components/Modal';
+import Register from './Register'
 function Navbar() {
 
     const { logout } = useAuth();
@@ -18,12 +19,12 @@ function Navbar() {
                         <ul className="navbar-nav">
 
                             <li className="nav-item">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <button type="button" class="btn btn-primary" onClick={() => modal.current.open()}>
                                     Create Group
                             </button>
-                                <button type="button" className="btn btn-primary" onClick={() => modal.current.open()}>
+                                {/* <button type="button" className="btn btn-primary" onClick={() => modal.current.open()}>
                                     Create Event
-                            </button>
+                            </button> */}
                                 {/* <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -48,7 +49,7 @@ function Navbar() {
                 </div>
             </nav>
             <Modal ref={modal}>
-                Hello World
+                <GroupForm />
             </Modal>
         </>
 
