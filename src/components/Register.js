@@ -1,5 +1,4 @@
 import React, { useEffect, useReducer } from 'react';
-import { useHistory } from 'react-router';
 import { useAuth } from '../utilities/AuthContext';
 import formReducer from '../utilities/reducers/formReducer';
 
@@ -27,28 +26,17 @@ function Register() {
 
     const failedRegister = (e) => {
         if (e.response.status === 422) {
-            dispatch({
-                formType: formState.formType,
-                type: "registerFailed",
-            })
+            dispatch({ formType: formState.formType, type: "registerFailed", })
         }
     }
 
     const handleChange = (e) => {
-        dispatch({
-            formType: formState.formType,
-            type: "onChange",
-            field: e.target.name,
-            payload: e.target.value,
-        })
+        dispatch({ formType: formState.formType, type: "onChange", field: e.target.name, payload: e.target.value, })
     }
 
     const handleSubmit = (e) => {
         if (e) e.preventDefault();
-        dispatch({
-            formType: formState.formType,
-            type: "onSubmit",
-        })
+        dispatch({ formType: formState.formType, type: "onSubmit", })
     }
 
     return (

@@ -60,18 +60,6 @@ export const AuthHelper = () => {
             url:'/api/auth/register',
             successMethod: saveToken,
             failureMethod: customFailureMethod
-            // function(error) {
-                // console.log("I failed")
-                // console.log("My Error: ", error.response)
-                // console.log(registrationData)
-                // return {
-                //     ...registrationData, 
-                //     canSubmit: false
-                // }
-                // return Object.assign({}, registrationData, {
-                //     canSubmit: false
-                // })
-            // }
         })
     }
 
