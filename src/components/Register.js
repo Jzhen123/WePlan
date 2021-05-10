@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../utilities/AuthContext';
 import formReducer from '../utilities/reducers/formReducer';
 
@@ -13,7 +14,7 @@ const initialFormState = {
     canSubmit: false,
 }
 
-function Register() {
+function Register({ toggleView }) {
 
     const [formState, dispatch] = useReducer(formReducer, initialFormState);
     const { register } = useAuth();
@@ -40,7 +41,8 @@ function Register() {
     }
 
     return (
-            <div className="row justify-content-md-center pt-5">
+            <div className="row justify-content-md-center">
+            <h5 className="pt-2 pb-3" onClick={toggleView}><Link>&lt;- Back to Log in</Link></h5>
                 <div className="col-10 card p-5">
                     <h1 className="mb-2">Create your account</h1>
                     <form onSubmit={handleSubmit} >

@@ -27,52 +27,40 @@ function UserLanding() {
                     <img src="/images/MainView.png" style={{ height: "100vh", width: '57vw' }} alt="Example View of App" />
                 </div>
 
-                    <div className="col-5 position-relative">
-                        {/* Card Styling and centering */}
-                        <div className="card position-absolute top-50 start-50 translate-middle p-3" style={{ height: '75vh', width: '30vw' }}>
-                            {
-                                view.register && (
-                                    <Register />
-                                )
-                            }
-
-                            {view.login && (
-                                <>
-                                    <div className="row justify-content-md-center">
-
-
-                                        {/* Header */}
-                                        <div className="row text-center name">
-                                            <p className="name">WePlan</p>
-                                        </div>
-
-                                        {/* Subheader */}
-                                        <div className="row text-center login mb-2">
-                                            <p className="brand text-center mt-1">Make Planning Events Fun<br></br>Not Stressful</p>
-                                        </div>
-
-                                        {/* Login Form */}
-                                        <Login />
+                <div className="col-5 position-relative">
+                    {/* Card Styling and centering */}
+                    <div className="card position-absolute top-50 start-50 translate-middle p-3" style={{ height: '75vh', width: '30vw' }}>
+                        {view.register && (
+                            <Register toggleView={toggleView} />
+                        )}
+                        {view.login && (
+                            <>
+                                <div className="row justify-content-md-center">
+                                    {/* Header */}
+                                    <div className="row text-center name">
+                                        <p className="name">WePlan</p>
                                     </div>
-
-                                    {/* Register and Retrieve Password Actions */}
-                                    <div className="row justify-content-md-center pt-3">
-                                        <div className="col-7">
-                                            {/* <p className="actions">&nbsp;&nbsp;&nbsp;Don't have an account? <Link to="/register">Sign Up!</Link></p> */}
-                                            <p className="actions">&nbsp;&nbsp;&nbsp;Don't have an account? <Link href="/register" onClick={toggleView}>Sign Up!</Link></p>
-                                        </div>
-
-                                        <div className="col-3 ms-4">
-                                            {/* <p className="actions"><Link>Forgot Password?</Link></p> */}
-                                        </div>
-
-
+                                    {/* Subheader */}
+                                    <div className="row text-center login mb-2">
+                                        <p className="brand text-center mt-1">Make Planning Events Fun<br></br>Not Stressful</p>
                                     </div>
-                                </>
-                            )}
-
-                        </div>
+                                    {/* Login Form */}
+                                    <Login />
+                                </div>
+                                {/* Register and Retrieve Password Actions */}
+                                <div className="row justify-content-md-center pt-3">
+                                    <div className="col-7">
+                                        {/* <p className="actions">&nbsp;&nbsp;&nbsp;Don't have an account? <Link to="/register">Sign Up!</Link></p> */}
+                                        <p className="actions">&nbsp;&nbsp;&nbsp;Don't have an account? <Link onClick={toggleView}>Sign Up!</Link></p>
+                                    </div>
+                                    {/* <div className="col-3 ms-4"> */}
+                                    {/* <p className="actions"><Link>Forgot Password?</Link></p> */}
+                                    {/* </div> */}
+                                </div>
+                            </>
+                        )}
                     </div>
+                </div>
             </div>
         </div>
     )
