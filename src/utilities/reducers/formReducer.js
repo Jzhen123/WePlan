@@ -4,8 +4,8 @@ export default function formReducer(state, action) {
     switch (action.formType) {
         case 'REGISTER':
             switch (action.type) {
-                // OnChange for Register Form
-                case "onChange":
+
+                case "onChange": // Checking for errors 
                     tempState.errors = {};
                     tempState.values[action.field] = action.payload
 
@@ -42,12 +42,12 @@ export default function formReducer(state, action) {
                         tempState.canSubmit = true
                     }
                     return tempState
-
-                case "LOGIN":
-                case "CREATE GROUP":
-
-                default:
-                    return state;
             }
+
+        case "LOGIN":
+        case "CREATE GROUP":
+
+        default:
+            return state;
     }
 }

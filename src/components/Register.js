@@ -22,8 +22,8 @@ function Register() {
 
     useEffect(() => {
         if (formState.canSubmit === true) {
-          register(formState.values)
-          history.push('/')
+            register(formState.values)
+            history.push('/')
         }
     }, [formState])
 
@@ -45,30 +45,41 @@ function Register() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>Name: </label>
-            <input type="text" name="name" onChange={(e) => handleChange(e)} />
-            {formState.errors.name && (
-                <div>{formState.errors.name}</div>
-            )}
-            <br></br>
+        <div className="container-fluid">
 
-            <label>Email: </label>
-            <input type="text" name="email" onChange={(e) => handleChange(e)} />
-            {formState.errors.email && (
-                <div>{formState.errors.email}</div>
-            )}
-            <br></br>
+            <div className="row justify-content-md-center">
+                <div className="col-4 card p-5 mt-5">
+                <h1 className="mb-2">Create your account</h1>
+                    <form onSubmit={handleSubmit} >
+                        <div class="form-floating mb-3 col-12">
+                            <input type="text" class="form-control" name="name" onChange={(e) => handleChange(e)} id="nameInput" placeholder="name@example.com" />
+                            <label for="nameInput">Name</label>
+                            {formState.errors.name && (
+                                <div>{formState.errors.name}</div>
+                            )}
+                        </div>
 
 
-            <label>Password: </label>
-            <input type="text" name="password" onChange={(e) => handleChange(e)} />
-            {formState.errors.password && (
-                <div>{formState.errors.password}</div>
-            )}
-            <br></br>
-            <button type="submit" className="button is-block is-info is-fullwidth">Sign Up</button>
-        </form>
+                        <div class="form-floating mb-3 col-12">
+                            <input type="text" class="form-control" name="email" onChange={(e) => handleChange(e)} id="emailInput" placeholder="name@example.com" />
+                            <label for="emailInput">Email address</label>
+                            {formState.errors.email && (
+                                <div>{formState.errors.email}</div>
+                            )}
+                        </div>
+
+                        <div class="form-floating mb-3 col-12">
+                            <input type="text" class="form-control" name="password" onChange={(e) => handleChange(e)} id="passwordInput" placeholder="Password" />
+                            <label for="passwordInput">Password</label>
+                            {formState.errors.password && (
+                                <div>{formState.errors.password}</div>
+                            )}
+                        </div>
+                        <button type="submit" className="btn btn-primary col-12">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     );
 }
 

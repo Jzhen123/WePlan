@@ -19,7 +19,7 @@ export function axiosHelper(props) {
         method,
         url: API_URL + url,
         headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
+            'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
             'Accept': 'application/json',
             'Authorization': 'Bearer ' + token
