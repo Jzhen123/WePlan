@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect, useRef } from 'react';
 import { useAuth } from '../utilities/AuthContext';
 import { useGroup } from "../utilities/GroupContext"
 import formReducer from '../utilities/reducers/formReducer';
@@ -19,7 +19,6 @@ const initialFormState = {
 const GroupForm = () => {
 
     const { userData } = useAuth();
-
     const { createGroup } = useGroup();
     const [formState, dispatch] = useReducer(formReducer, initialFormState);
 

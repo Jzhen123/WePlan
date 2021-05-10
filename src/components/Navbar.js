@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import { useAuth } from '../utilities/AuthContext';
 import GroupForm from './GroupForm';
 import Modal from '../components/Modal';
-import Register from './Register'
 function Navbar() {
 
     const { logout } = useAuth();
@@ -21,25 +20,9 @@ function Navbar() {
                             <li className="nav-item">
                                 <button type="button" class="btn btn-primary" onClick={() => modal.current.open()}>
                                     Create Group
-                            </button>
-                                {/* <button type="button" className="btn btn-primary" onClick={() => modal.current.open()}>
-                                    Create Event
-                            </button> */}
-                                {/* <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h3 class="modal-title" id="exampleModalLabel">Create Group</h3>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body"> */}
-                                {/* <GroupForm /> */}
-                                {/* </div>
-                                    </div>
-                                </div>
-                            </div> */}
-
+                                </button>
                             </li>
+
                             <li className="nav-item">
                                 <button className="btn btn-primary ms-2" onClick={logout}>Log Out</button>
                             </li>

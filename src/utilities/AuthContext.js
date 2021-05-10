@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState, useContext } from "react"
+import React, { createContext, useEffect, useState, useContext, useRef } from "react"
 import { axiosHelper } from "./axiosHelper";
 import { useHistory, useLocation } from "react-router-dom";
 
@@ -16,15 +16,15 @@ export const AuthHelper = () => {
     useEffect(() => {
         let lsToken = window.localStorage.getItem('token');
 
-        if(lsToken) {
+        if (lsToken) {
             console.log("Component Mount/Update")
             setToken(lsToken); // Set token token to LS token
             index(); // Retrieves User Data with LS token
         } else {
             console.log(location)
-           if (location.pathname !== "/register" || location.pathname !== "/login"){
-               history.push("/login"); // If there is not a token, send user to login view
-           }
+            if (location.pathname !== "/register" || location.pathname !== "/login") {
+                history.push("/login"); // If there is not a token, send user to login view
+            }
         }
     }, [token, history]) // Dependency for token and history changes
 
@@ -60,8 +60,8 @@ export const AuthHelper = () => {
     function register(registrationData, customFailureMethod) {
         axiosHelper({
             data: registrationData.values,
-            method:'post', 
-            url:'/api/auth/register',
+            method: 'post',
+            url: '/api/auth/register',
             successMethod: saveToken,
             failureMethod: customFailureMethod
         })
@@ -70,16 +70,16 @@ export const AuthHelper = () => {
     // Hits backend route for logging in users with user's input. Returns token
     function login(loginData, customFailureMethod) {
         Object.assign(loginData, {
-                grant_type: "password",
-                client_id: "2",
-                client_secret: "tK4LYRDN0FbT7svAb3yZXgRjp9ajbas1GWecxkUI",
-                scope: "",
-            })
-            console.log(loginData)
+            grant_type: "password",
+            client_id: "2",
+            client_secret: "tK4LYRDN0FbT7svAb3yZXgRjp9ajbas1GWecxkUI",
+            scope: "",
+        })
+        console.log(loginData)
         axiosHelper({
             data: loginData,
-            method:'post', 
-            url:'/oauth/token', 
+            method: 'post',
+            url: '/oauth/token',
             successMethod: saveToken,
             failureMethod: customFailureMethod
         })
@@ -88,41 +88,36 @@ export const AuthHelper = () => {
     // Hits backend route route for logout with user's token.
     function logout() {
         axiosHelper({
-            url:'/api/auth/logout', 
+            url: '/api/auth/logout',
             successMethod: destroyToken,
             token
         })
-        .then(history.push("/login"));
-    }
-
-    function checkEmail(formData) {
-        axiosHelper({
-            data: formData,
-            url: '/api/auth/checkEmail',
-            method: 'post',
-        })
+            .then(history.push("/login"));
     }
 
     // Retrieve User Data
     function index() {
         console.log("Indexing User Data")
         axiosHelper({
-            url:'/api/auth/user',
+            url: '/api/auth/user',
             successMethod: saveUserData,
             token
         })
+        if (document.getElementById("click")){
+            document.getElementById("click").click()
+        }
     }
 
-    return { token, register, login, logout, userData, checkEmail }
+    return { token, register, login, logout, userData, index }
 }
 
 // custom Provider component
 export const AuthProvider = (props) => {
     const initialContext = AuthHelper()
     return (
-    <AuthContext.Provider value={initialContext}>
-        {props.children}
-    </AuthContext.Provider>
+        <AuthContext.Provider value={initialContext}>
+            {props.children}
+        </AuthContext.Provider>
     )
 }
 

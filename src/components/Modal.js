@@ -1,6 +1,6 @@
 import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useState } from 'react';
 import { createPortal } from 'react-dom';
-import './Modal.css';
+import './Modal.css'
 
 const modalElement = document.getElementById('modal-root')
 
@@ -29,7 +29,7 @@ export function Modal({ children, fade = true, defaultOpened = false }, ref) {
     isOpen ? (
       <div className={`modal ${fade ? 'modal-fade' : ''}`}>
         <div className="modal-overlay" onClick={close} />
-        <span role="button" className="modal-close" aria-label="close" onClick={close}>
+        <span id="click" role="button" className="modal-close" aria-label="close" onClick={close}>
           x
         </span>
         <div className="modal-body">{children}</div>

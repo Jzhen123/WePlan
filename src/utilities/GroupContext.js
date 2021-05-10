@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState, useContext } from "react"
+import React, { createContext, useEffect, useState, useContext, useRef } from "react"
 import { useHistory } from "react-router-dom";
 import { axiosHelper } from "./axiosHelper";
 import { useAuth } from "./AuthContext";
@@ -10,6 +10,7 @@ export const GroupHelper = () => {
 
     const history = useHistory();
     const { index } = useAuth();
+    const modal = useRef(null)
     
     function createGroup(groupData, customFailureMethod) {
         axiosHelper({
