@@ -1,45 +1,42 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useState } from 'react';
+import { createPortal } from 'react-dom';
+import './Modal.css';
 
-const Modal = (props) => props.visible ? ReactDOM.createPortal(
-    <React.Fragment>
-      <div className="modal-overlay"/>
-      <div className="modal-wrapper" aria-modal aria-hidden tabIndex={-1} role="dialog">
-        <div className="modal">
-          <div className="modal-header">
-            <button type="button" className="modal-close-button" data-dismiss="modal" aria-label="Close" onClick={props.toggleModal}>
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <p>
-            Hello, I'm a modal.
-          </p>
-        </div>
+const modalElement = document.getElementById('modal-root')
+
+export function Modal({ children, fade = true, defaultOpened = false }, ref) {
+
+  const [isOpen, setIsOpen] = useState(defaultOpened)
+  const close = useCallback(() => setIsOpen(false), [])
+
+  useImperativeHandle(ref, () => ({
+    open: () => setIsOpen(true),
+    close
+  }), [close])
+
+  const handleEscape = useCallback(event => {
+    if (event.keyCode === 27) close()
+  }, [close])
+
+  useEffect(() => {
+    if (isOpen) document.addEventListener('keydown', handleEscape, false)
+    return () => {
+      document.removeEventListener('keydown', handleEscape, false)
+    }
+  }, [handleEscape, isOpen])
+
+  return createPortal(
+    isOpen ? (
+      <div className={`modal ${fade ? 'modal-fade' : ''}`}>
+        <div className="modal-overlay" onClick={close} />
+        <span role="button" className="modal-close" aria-label="close" onClick={close}>
+          x
+        </span>
+        <div className="modal-body">{children}</div>
       </div>
-    </React.Fragment>, document.body
-  ) : null;
-    // return (
-    //     <>
-    //     {console.log(props.visible)}
-    //         {
-    //             props.visible ?
-    //                 <div className="modal fade" id="exampleModal" tabIndex="-1">
-    //                     <div className="modal-dialog">
-    //                         <div className="modal-content">
-    //                             <div className="modal-header">
-    //                                 <h3 className="modal-title">Create Group</h3>
-    //                                 <button type="button" className="btn-close" onClick={props.toggleModal}></button>
-    //                             </div>
-    //                             <div className="modal-body">
-    //                                 {props.children}
-    //                             </div>
-    //                         </div>
-    //                     </div>
-    //                 </div>
-    //                 : null
-    //         }
-    //     </>
-    // )
-// }
+    ) : null,
+    modalElement
+  )
+}
 
-export default Modal;
+export default forwardRef(Modal);

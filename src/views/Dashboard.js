@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useAuth } from '../utilities/AuthContext';
 import Navbar from '../components/Navbar';
 import FullCalendar from '@fullcalendar/react'
