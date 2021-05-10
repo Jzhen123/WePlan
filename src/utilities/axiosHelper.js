@@ -7,8 +7,8 @@ export function axiosHelper(props) {
         url = '/',
         data = {},
         token = '',
-        successMethod = r => console.log(r),
-        failureMethod = e => console.log(e)
+        successMethod = r => console.log("Axios Sucess: " + r),
+        failureMethod = e => console.log("Axios Failed: " + e)
     } = props;
 
     // Main URL for routes
@@ -19,7 +19,7 @@ export function axiosHelper(props) {
         method,
         url: API_URL + url,
         headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
+            'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
             'Accept': 'application/json',
             'Authorization': 'Bearer ' + token

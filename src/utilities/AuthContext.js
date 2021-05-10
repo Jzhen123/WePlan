@@ -1,28 +1,32 @@
 import React, { createContext, useEffect, useState, useContext } from "react"
 import { axiosHelper } from "./axiosHelper";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 const AuthContext = createContext({});
 
-// helper function that exports just the needed/wanted data for the provider
+// Helper function that exports just the needed/wanted data for the Auth provider
 export const AuthHelper = () => {
 
     const history = useHistory();
     const [token, setToken] = useState('');
     const [userData, setUserData] = useState({});
+    const location = useLocation();
 
-    // retaining user login information
+    // Retaining General and OAuth Data for User
     useEffect(() => {
         let lsToken = window.localStorage.getItem('token');
 
         if(lsToken) {
-            console.log("getting User Data")
+            console.log("Component Mount/Update")
             setToken(lsToken); // Set token token to LS token
-            index(lsToken); // Retrieves User Data with LS token
+            index(); // Retrieves User Data with LS token
         } else {
-            history.push("/login"); // If there is not a token, send user to login view
+            console.log(location)
+           if (location.pathname !== "/register" || location.pathname !== "/login"){
+               history.push("/login"); // If there is not a token, send user to login view
+           }
         }
-    }, [token])
+    }, [token, history]) // Dependency for token and history changes
 
     // Saving token in local storage and context
     function saveToken(res) {
@@ -30,12 +34,13 @@ export const AuthHelper = () => {
         let APItoken;
         // Sets API token to different values depending on data key(s) and url from result
         if (res.config.url === "https://we-plan-jiayuzheng01421007.codeanyapp.com/api/auth/register") {
-            APItoken = res.data.data.token
+            APItoken = res.data.data.token // Token when Registering
         } else if (res.config.url === "https://we-plan-jiayuzheng01421007.codeanyapp.com/oauth/token") {
-            APItoken = res.data.access_token
+            APItoken = res.data.access_token // Token when Logging in
         }
         setToken(APItoken);
         window.localStorage.setItem('token', APItoken)
+        history.push('/')
     }
 
     // Sets Context token to empty string and deletes LS token
@@ -45,27 +50,38 @@ export const AuthHelper = () => {
         window.localStorage.removeItem('token');
     }
 
+    // Saving changes made to UserData to Context variable
     function saveUserData(res) {
-        console.log(res.data)
+        console.log("Retrieved User Data: " + res.data)
         setUserData(res.data);
     }
 
     // Hits backend route for registering users with user's input. Stores user and returns token
-    function register(registrationData) {
+    function register(registrationData, customFailureMethod) {
         axiosHelper({
-            data: registrationData,
+            data: registrationData.values,
             method:'post', 
-            url:'/api/auth/register', 
+            url:'/api/auth/register',
+            successMethod: saveToken,
+            failureMethod: customFailureMethod
         })
     }
 
     // Hits backend route for logging in users with user's input. Returns token
-    function login(loginData) {
+    function login(loginData, customFailureMethod) {
+        Object.assign(loginData, {
+                grant_type: "password",
+                client_id: "2",
+                client_secret: "tK4LYRDN0FbT7svAb3yZXgRjp9ajbas1GWecxkUI",
+                scope: "",
+            })
+            console.log(loginData)
         axiosHelper({
             data: loginData,
             method:'post', 
             url:'/oauth/token', 
             successMethod: saveToken,
+            failureMethod: customFailureMethod
         })
     }
 
@@ -79,8 +95,17 @@ export const AuthHelper = () => {
         .then(history.push("/login"));
     }
 
+    function checkEmail(formData) {
+        axiosHelper({
+            data: formData,
+            url: '/api/auth/checkEmail',
+            method: 'post',
+        })
+    }
+
+    // Retrieve User Data
     function index() {
-        console.log("Index")
+        console.log("Indexing User Data")
         axiosHelper({
             url:'/api/auth/user',
             successMethod: saveUserData,
@@ -88,23 +113,12 @@ export const AuthHelper = () => {
         })
     }
 
-    function create(groupData) {
-        axiosHelper({
-        data: groupData,
-        method: 'post',
-        url: '/api/group/create',
-        successMethod: index
-        })
-    }
-
-    return { token, create, register, login, logout, userData }
+    return { token, register, login, logout, userData, checkEmail }
 }
 
 // custom Provider component
 export const AuthProvider = (props) => {
-
     const initialContext = AuthHelper()
-
     return (
     <AuthContext.Provider value={initialContext}>
         {props.children}

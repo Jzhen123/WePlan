@@ -1,61 +1,63 @@
-import React from 'react';
-import validate from '../utilities/LoginFormValidationRules';
-import useForm from '../utilities/useForm';
+import React, { useReducer, useEffect } from 'react';
 import { useAuth } from '../utilities/AuthContext';
-import { useHistory } from "react-router-dom";
+import formReducer from '../utilities/reducers/formReducer';
+
+const initialFormState = {
+  formType: "LOGIN",
+  values: {
+    username: "",
+    password: "",
+  },
+  errors: {},
+  canSubmit: false,
+}
 
 const Login = () => {
 
-  const {
-    values,
-    errors,
-    handleChange,
-    handleSubmit,
-  } = useForm(submitForm, validate);
-  const history = useHistory();
+  const [formState, dispatch] = useReducer(formReducer, initialFormState);
   const { login } = useAuth();
 
-  function submitForm() {
-    const postData = {
-      grant_type: "password",
-      client_id: "2",
-      client_secret: "tK4LYRDN0FbT7svAb3yZXgRjp9ajbas1GWecxkUI",
-      scope: "",
-      username: values.email,
-      password: values.password,
+  useEffect(() => {
+    if (formState.canSubmit === true) {
+      login(formState.values, failedLogin)
     }
-    console.log(postData)
-    login(postData)
-    history.push("/");
+  }, [formState])
+
+  const failedLogin = (e) => {
+      formState.errors = e.response.data.error
+      dispatch({ formType: formState.formType, type: "loginFailed", })
+  }
+
+  const handleChange = (e) => {
+    dispatch({ formType: formState.formType, type: "onChange", field: e.target.name, payload: e.target.value, })
+  }
+
+  const handleSubmit = (e) => {
+    if (e) e.preventDefault();
+    dispatch({ formType: formState.formType, type: "onSubmit", })
   }
 
   return (
-    <form className="row g-0" onSubmit={handleSubmit} novalidate>
+      <div className="row justify-content-md-center">
+        <div className="col-10 card p-4">
+          <h2 className="mb-2">Start Planning!</h2>
+          <form onSubmit={handleSubmit} >
 
-      <label for="validationLoginEmail" className="form-label ">Your Email</label>
-      <div className="input-group mb-2">
-        <span class="input-group-text" id="inputGroupPrepend1">@</span>
-        {/* <div className="col-10"> */}
-          <input autoComplete="off" className="form-control" onChange={handleChange} value={values.email || ''} type="email" name="email" placeholder="e.g. jimmy@noneyabuisness.com" required />
-        {/* </div> */}
-        {errors.email && (
-          <p className="mt-1 mb-0 col-12" style={{ color: 'red' }}>{errors.email}</p>
-        )}
-      </div>
+            <div className="form-floating mb-3 col-12">
+              <input type="text" className="form-control" name="username" onChange={(e) => handleChange(e)} id="usernameInput" placeholder="name@example.com" />
+              <label for="usernameInput">Email address</label>
+              <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.username ? 'visible' : 'hidden' }}>{formState.errors.username}</div>
+            </div>
 
-      <label for="validationLoginPassword" className="form-label">Your Password</label>
-      <div className="input-group mb-2 has-validation">
-        <span class="input-group-text" id="inputGroupPrepend2">@</span>
-        {/* <div className="col-10"> */}
-          <input className="form-control" type="password" name="password" onChange={handleChange} value={values.password || ''} placeholder="Enter password" required />
+            <div className="form-floating mb-3 col-12">
+              <input type="password" className="form-control" name="password" onChange={(e) => handleChange(e)} id="passwordInput" placeholder="Password" />
+              <label for="passwordInput">Password</label>
+              <div style={{ color: '#cc0000', height: '4vh', visibility: formState.errors.password ? 'visible' : 'hidden' }}>{formState.errors.password}</div>
+            </div>
+            <button type="submit" className="btn btn-primary col-12">Log in</button>
+          </form>
         </div>
-        {errors.password && (
-          <p className="help mt-1 mb-0 col-12" style={{ color: 'red' }}>{errors.password}</p>
-        )}
-      {/* </div> */}
-
-      <button type="submit" className="btn btn-primary mt-2">Log In</button>
-    </form>
+      </div>
   )
 }
 

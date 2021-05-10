@@ -1,68 +1,73 @@
-import React from 'react';
-import validate from '../utilities/RegisterFormValidationRules';
-import useForm from '../utilities/useForm';
+import React, { useEffect, useReducer } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../utilities/AuthContext';
-import { useHistory } from "react-router-dom";
+import formReducer from '../utilities/reducers/formReducer';
 
-const Register = () => {
-  const {
-    values,
-    errors,
-    handleChange,
-    handleSubmit,
-  } = useForm(submitForm, validate);
-  const { register } = useAuth();
-  const history = useHistory();
+const initialFormState = {
+    formType: "REGISTER",
+    values: {
+        name: "",
+        email: "",
+        password: "",
+    },
+    errors: {},
+    canSubmit: false,
+}
 
-  function submitForm() {
-    register(values);
-    history.push("/login");
-  }
+function Register({ toggleView }) {
 
-  return (
-    <div className="section is-fullheight">
-      <div className="container">
-        <div className="column is-4 is-offset-4">
-          <div className="box">
-            <form onSubmit={handleSubmit} noValidate>
+    const [formState, dispatch] = useReducer(formReducer, initialFormState);
+    const { register } = useAuth();
 
-              <div className="field">
-                <label className="label">Name</label>
-                <div className="control">
-                  <input autoComplete="off" className={`input ${errors.name && 'is-danger'}`} type="name" name="name" onChange={handleChange} value={values.name || ''} required />
-                  {errors.name && (
-                    <p className="help is-danger">{errors.name}</p>
-                  )}
+    useEffect(() => {
+        if (formState.canSubmit === true) {
+            register(formState, failedRegister)
+        }
+    }, [formState])
+
+    const failedRegister = (e) => {
+        if (e.response.status === 422) {
+            dispatch({ formType: formState.formType, type: "registerFailed", })
+        }
+    }
+
+    const handleChange = (e) => {
+        dispatch({ formType: formState.formType, type: "onChange", field: e.target.name, payload: e.target.value, })
+    }
+
+    const handleSubmit = (e) => {
+        if (e) e.preventDefault();
+        dispatch({ formType: formState.formType, type: "onSubmit", })
+    }
+
+    return (
+            <div className="row justify-content-md-center">
+            <h5 className="pt-2 pb-3" onClick={toggleView}><Link>&lt;- Back to Log in</Link></h5>
+                <div className="col-10 card p-5">
+                    <h1 className="mb-2">Create your account</h1>
+                    <form onSubmit={handleSubmit} >
+                        <div class="form-floating mb-3 col-12">
+                            <input type="text" class="form-control" name="name" onChange={(e) => handleChange(e)} id="nameInput" placeholder="name@example.com" />
+                            <label for="nameInput">Name</label>
+                            <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.name ? 'visible' : 'hidden' }}>{formState.errors.name}</div>
+                        </div>
+
+                        <div class="form-floating mb-3 col-12">
+                            <input type="text" class="form-control" name="email" onChange={(e) => handleChange(e)} id="emailInput" placeholder="name@example.com" />
+                            <label for="emailInput">Email address</label>
+                            <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.email ? 'visible' : 'hidden' }}>{formState.errors.email}</div>
+                        </div>
+
+                        <div class="form-floating mb-3 col-12">
+                            <input type="password" class="form-control" name="password" onChange={(e) => handleChange(e)} id="passwordInput" placeholder="Password" />
+                            <label for="passwordInput">Password</label>
+                            <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.password ? 'visible' : 'hidden' }}>{formState.errors.password}</div>
+                        </div>
+                        <button type="submit" className="btn btn-primary col-12">Sign Up</button>
+                    </form>
                 </div>
-              </div>
-
-              <div className="field">
-                <label className="label">Email Address</label>
-                <div className="control">
-                  <input autoComplete="off" className={`input ${errors.email && 'is-danger'}`} type="email" name="email" onChange={handleChange} value={values.email || ''} required />
-                  {errors.email && (
-                    <p className="help is-danger">{errors.email}</p>
-                  )}
-                </div>
-              </div>
-
-              <div className="field">
-                <label className="label">Password</label>
-                <div className="control">
-                  <input className={`input ${errors.password && 'is-danger'}`} type="password" name="password" onChange={handleChange} value={values.password || ''} required />
-                </div>
-                {errors.password && (
-                  <p className="help is-danger">{errors.password}</p>
-                )}
-              </div>
-
-              <button type="submit" className="button is-block is-info is-fullwidth">Sign Up</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
+            </div>
+    );
 }
 
 export default Register;
