@@ -89,6 +89,39 @@ export default function formReducer(state, action) {
             }
 
         case "CREATE GROUP":
+            switch (action.type) {
+                case "onChange":
+                    switch (action.field) {
+                        case "privacy":
+                            if (tempState.values.privacy === "Public") {
+                                tempState.values.privacy = "Private"
+                            } else if (tempState.values.privacy === "Private") {
+                                tempState.values.privacy = "Public"
+                            }
+                            return tempState
+                        case "name":
+                            tempState.values[action.field] = action.payload
+                            break
+                        case "type_id":
+                            tempState.values[action.field] = parseInt(action.payload)
+                            break
+
+
+                    }
+                    return tempState
+
+                case "onSubmit":
+                    tempState.errors = {};
+                    if (!tempState.values.name) {
+                        tempState.errors.name = 'Name is required';
+                    }
+
+                    if (Object.keys(tempState.errors).length === 0 && tempState.values.name.length > 1) {
+                        tempState.canSubmit = true
+                    }
+
+                    return tempState
+            }
 
         default:
             return state;

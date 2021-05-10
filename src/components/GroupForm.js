@@ -3,31 +3,38 @@ import { useAuth } from '../utilities/AuthContext';
 import { useGroup } from "../utilities/GroupContext"
 import formReducer from '../utilities/reducers/formReducer';
 
+const initialFormState = {
+    formType: "CREATE GROUP",
+    values: {
+        created_by_user_id: "",
+        name: "",
+        privacy: "Public",
+        type_id: 1,
+        active: 1,
+    },
+    errors: {},
+    canSubmit: false,
+}
 
 const GroupForm = () => {
 
     const { userData } = useAuth();
-    const initialFormState = {
-        formType: "CREATE GROUP",
-        values: {
-            created_by_user_id: userData.id,
-            name: "",
-            type_id: "",
-            privacy: "Public",
-            active: '1',
-        },
-        errors: {},
-        canSubmit: false,
-    }
 
     const { createGroup } = useGroup();
     const [formState, dispatch] = useReducer(formReducer, initialFormState);
 
     useEffect(() => {
+        formState.values.created_by_user_id = userData.id
         if (formState.canSubmit === true) {
-            createGroup(formState)
+            createGroup(formState.values, failedGroupCreate)
         }
+        console.log(formState.values)
     }, [formState])
+
+    const failedGroupCreate = (e) => {
+        console.log(e.response.data)
+            // dispatch({ formType: formState.formType, type: "failedGroupCreate", })
+    }
 
     const handleChange = (e) => {
         dispatch({ formType: formState.formType, type: "onChange", field: e.target.name, payload: e.target.value, })
@@ -51,18 +58,17 @@ const GroupForm = () => {
 
                     <div className="row">
                         <div className="form-floating col-10">
-                            <select className="form-select" id="floatingSelect" aria-label="Floating label select example">
-                                <option selected>Friends</option>
-                                <option value="1">Friends</option>
+                            <select className="form-select" id="floatingSelect" name="type_id" onChange={(e) => handleChange(e)} aria-label="Floating label select example">
+                                <option value="1" selected>Friends</option>
                                 <option value="2">Work</option>
                                 <option value="3">Family</option>
-                                <option value="3">Roommates</option>
+                                <option value="4">Roommates</option>
                             </select>
                             <label for="floatingSelect">&nbsp;&nbsp;&nbsp;&nbsp;Choose Group Type</label>
                         </div>
 
                         <div className="form-check form-switch col-2 pt-3">
-                            <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+                            <input className="form-check-input" type="checkbox" name="privacy" onChange={(e) => handleChange(e)} id="flexSwitchCheckDefault" />
                             <label className="form-check-label" for="flexSwitchCheckDefault">Private?</label>
                         </div>
                     </div>
