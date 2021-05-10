@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../utilities/AuthContext';
 import formReducer from '../utilities/reducers/formReducer';
 
@@ -13,7 +14,7 @@ const initialFormState = {
     canSubmit: false,
 }
 
-function Register() {
+function Register({ toggleView }) {
 
     const [formState, dispatch] = useReducer(formReducer, initialFormState);
     const { register } = useAuth();
@@ -40,10 +41,9 @@ function Register() {
     }
 
     return (
-        <div className="container-fluid">
-
             <div className="row justify-content-md-center">
-                <div className="col-4 card p-5">
+            <h5 className="pt-2 pb-3" onClick={toggleView}><Link>&lt;- Back to Log in</Link></h5>
+                <div className="col-10 card p-5">
                     <h1 className="mb-2">Create your account</h1>
                     <form onSubmit={handleSubmit} >
                         <div class="form-floating mb-3 col-12">
@@ -52,7 +52,6 @@ function Register() {
                             <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.name ? 'visible' : 'hidden' }}>{formState.errors.name}</div>
                         </div>
 
-
                         <div class="form-floating mb-3 col-12">
                             <input type="text" class="form-control" name="email" onChange={(e) => handleChange(e)} id="emailInput" placeholder="name@example.com" />
                             <label for="emailInput">Email address</label>
@@ -60,7 +59,7 @@ function Register() {
                         </div>
 
                         <div class="form-floating mb-3 col-12">
-                            <input type="text" class="form-control" name="password" onChange={(e) => handleChange(e)} id="passwordInput" placeholder="Password" />
+                            <input type="password" class="form-control" name="password" onChange={(e) => handleChange(e)} id="passwordInput" placeholder="Password" />
                             <label for="passwordInput">Password</label>
                             <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.password ? 'visible' : 'hidden' }}>{formState.errors.password}</div>
                         </div>
@@ -68,7 +67,6 @@ function Register() {
                     </form>
                 </div>
             </div>
-        </div>
     );
 }
 

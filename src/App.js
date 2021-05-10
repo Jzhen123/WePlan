@@ -23,10 +23,6 @@ function App() {
               <UserLanding />
             </Route>
 
-            <Route path="/register"> {/* Register Page */}
-              <Register />
-            </Route>
-
 
           </GroupProvider>
         </AuthProvider>
