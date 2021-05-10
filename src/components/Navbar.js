@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '../utilities/AuthContext';
-import GroupForm from './GroupForm';
+// import GroupForm from './GroupForm';
 
 function Navbar() {
 
@@ -27,7 +27,7 @@ function Navbar() {
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <GroupForm />
+                                            {/* <GroupForm /> */}
                                         </div>
                                     </div>
                                 </div>

@@ -1,12 +1,9 @@
-import { axiosHelper } from "../axiosHelper";
-
 export default function formReducer(state, action) {
     let tempState = { ...state }
     // console.log(action)
 
     switch (action.formType) {
         case 'REGISTER':
-
             switch (action.type) {
                 case "onChange": // Checking for errors 
                     tempState.values[action.field] = action.payload
@@ -53,12 +50,11 @@ export default function formReducer(state, action) {
                     tempState.errors = {};
 
                     tempState.canSubmit = false
-                    tempState.errors.email = "Email already in use. Log in or try a different email!"
+                    tempState.errors.email = "Email in use. Log in or try a different email!"
                     return tempState
             }
 
         case "LOGIN":
-
             switch (action.type) {
                 case "onChange":
                     tempState.values[action.field] = action.payload

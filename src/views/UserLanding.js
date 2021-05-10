@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './UserLanding.css'
 import Login from '../components/Login';
-import { Link, Route, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Register from '../components/Register';
 
 function UserLanding() {
@@ -21,7 +21,6 @@ function UserLanding() {
     return (
         <div className="container-fluid">
             <div className="row">
-
                 {/* Image/Left Side */}
                 <div className="col-7">
                     <img src="/images/MainView.png" style={{ height: "100vh", width: '57vw' }} alt="Example View of App" />
@@ -49,13 +48,9 @@ function UserLanding() {
                                 </div>
                                 {/* Register and Retrieve Password Actions */}
                                 <div className="row justify-content-md-center pt-3">
-                                    <div className="col-7">
-                                        {/* <p className="actions">&nbsp;&nbsp;&nbsp;Don't have an account? <Link to="/register">Sign Up!</Link></p> */}
+                                    <div className="col-6">
                                         <p className="actions">&nbsp;&nbsp;&nbsp;Don't have an account? <Link onClick={toggleView}>Sign Up!</Link></p>
                                     </div>
-                                    {/* <div className="col-3 ms-4"> */}
-                                    {/* <p className="actions"><Link>Forgot Password?</Link></p> */}
-                                    {/* </div> */}
                                 </div>
                             </>
                         )}

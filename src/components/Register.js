@@ -52,7 +52,6 @@ function Register({ toggleView }) {
                             <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.name ? 'visible' : 'hidden' }}>{formState.errors.name}</div>
                         </div>
 
-
                         <div class="form-floating mb-3 col-12">
                             <input type="text" class="form-control" name="email" onChange={(e) => handleChange(e)} id="emailInput" placeholder="name@example.com" />
                             <label for="emailInput">Email address</label>
@@ -60,7 +59,7 @@ function Register({ toggleView }) {
                         </div>
 
                         <div class="form-floating mb-3 col-12">
-                            <input type="text" class="form-control" name="password" onChange={(e) => handleChange(e)} id="passwordInput" placeholder="Password" />
+                            <input type="password" class="form-control" name="password" onChange={(e) => handleChange(e)} id="passwordInput" placeholder="Password" />
                             <label for="passwordInput">Password</label>
                             <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.password ? 'visible' : 'hidden' }}>{formState.errors.password}</div>
                         </div>
