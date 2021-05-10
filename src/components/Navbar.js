@@ -16,6 +16,7 @@ function Navbar() {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul className="navbar-nav">
+                        <h2 className="pe-4 mb-0 ms-1">We Plan</h2>
 
                             <li className="nav-item">
                                 <button type="button" class="btn btn-primary" onClick={() => modal.current.open()}>

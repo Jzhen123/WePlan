@@ -27,12 +27,10 @@ const GroupForm = () => {
         if (formState.canSubmit === true) {
             createGroup(formState.values, failedGroupCreate)
         }
-        console.log(formState.values)
     }, [formState])
 
     const failedGroupCreate = (e) => {
         console.log(e.response.data)
-            // dispatch({ formType: formState.formType, type: "failedGroupCreate", })
     }
 
     const handleChange = (e) => {
