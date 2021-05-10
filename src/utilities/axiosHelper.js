@@ -7,8 +7,8 @@ export function axiosHelper(props) {
         url = '/',
         data = {},
         token = '',
-        successMethod = r => console.log(r),
-        failureMethod = e => console.log(e)
+        successMethod = r => console.log("Axios Sucess: " + r),
+        failureMethod = e => console.log("Axios Failed: " + e.response)
     } = props;
 
     // Main URL for routes

@@ -36,6 +36,7 @@ export const AuthHelper = () => {
         }
         setToken(APItoken);
         window.localStorage.setItem('token', APItoken)
+        history.push('/')
     }
 
     // Sets Context token to empty string and deletes LS token
@@ -52,12 +53,25 @@ export const AuthHelper = () => {
     }
 
     // Hits backend route for registering users with user's input. Stores user and returns token
-    function register(registrationData) {
+    function register(registrationData, customFailureMethod) {
         axiosHelper({
-            data: registrationData,
+            data: registrationData.values,
             method:'post', 
             url:'/api/auth/register',
-            successMethod: saveToken 
+            successMethod: saveToken,
+            failureMethod: customFailureMethod
+            // function(error) {
+                // console.log("I failed")
+                // console.log("My Error: ", error.response)
+                // console.log(registrationData)
+                // return {
+                //     ...registrationData, 
+                //     canSubmit: false
+                // }
+                // return Object.assign({}, registrationData, {
+                //     canSubmit: false
+                // })
+            // }
         })
     }
 
@@ -81,6 +95,14 @@ export const AuthHelper = () => {
         .then(history.push("/login"));
     }
 
+    function checkEmail(formData) {
+        axiosHelper({
+            data: formData,
+            url: '/api/auth/checkEmail',
+            method: 'post',
+        })
+    }
+
     // Retrieve User Data
     function index() {
         console.log("Indexing User Data")
@@ -91,7 +113,7 @@ export const AuthHelper = () => {
         })
     }
 
-    return { token, register, login, logout, userData }
+    return { token, register, login, logout, userData, checkEmail }
 }
 
 // custom Provider component
