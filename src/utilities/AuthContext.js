@@ -64,12 +64,20 @@ export const AuthHelper = () => {
     }
 
     // Hits backend route for logging in users with user's input. Returns token
-    function login(loginData) {
+    function login(loginData, customFailureMethod) {
+        Object.assign(loginData, {
+                grant_type: "password",
+                client_id: "2",
+                client_secret: "tK4LYRDN0FbT7svAb3yZXgRjp9ajbas1GWecxkUI",
+                scope: "",
+            })
+            console.log(loginData)
         axiosHelper({
             data: loginData,
             method:'post', 
             url:'/oauth/token', 
             successMethod: saveToken,
+            failureMethod: customFailureMethod
         })
     }
 

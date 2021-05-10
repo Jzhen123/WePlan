@@ -31,15 +31,7 @@ function UserLanding() {
                             </div>
 
                             {/* Login Form */}
-                            <div className="row justify-content-center">
-                            <div className="col-10">
-                                <div id="Login" className="card ps-4 pe-3 pb-3 pt-2">
-                                    <div className="card-body">
-                                        <Login />
-                                    </div>
-                                </div>
-                            </div>
-                            </div>
+                            <Login />
                         </div>
 
                         {/* Register and Retrieve Password Actions */}
@@ -47,7 +39,7 @@ function UserLanding() {
                             <div className="col-6">
                                 <p className="actions">Don't have an account? <Link to="/register">Sign Up</Link></p>
                             </div>
-                    
+
                             <div className="col-3 ms-4">
                                 {/* <p className="actions"><Link>Forgot Password?</Link></p> */}
                             </div>
