@@ -20,6 +20,7 @@ const Login = () => {
   useEffect(() => {
     if (formState.canSubmit === true) {
       login(formState.values, failedLogin)
+      dispatch({formType: "LOGIN", type: "clearForm"});
     }
   }, [formState])
 

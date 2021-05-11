@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState, useContext, useRef } from "react"
+import React, { createContext, useEffect, useState, useContext } from "react"
 import { axiosHelper } from "./axiosHelper";
 import { useHistory, useLocation } from "react-router-dom";
 
@@ -92,7 +92,7 @@ export const AuthHelper = () => {
             successMethod: destroyToken,
             token
         })
-            .then(history.push("/login"));
+        .then(history.push("/login"));
     }
 
     // Retrieve User Data

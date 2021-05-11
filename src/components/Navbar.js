@@ -87,12 +87,12 @@ function Navbar() {
                         </ul>
 
                         {/* Dropdown for settings */}
-                        <ul className="navbar-nav mb-2 mb-lg-0 ">
+                        <ul className="navbar-nav mb-2 mb-lg-0 me-2">
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Settings</a>
+                                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Settings</a>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <li className="dropdown-item">User Settings</li>
-                                    <li className="dropdown-item">Group Preferences</li>
+                                    <li className="dropdown-item">Settings</li>
+                                    <li className="dropdown-item">Preferences</li>
                                     <li className="dropdown-item" onClick={logout}>Logout</li>
                                 </ul>
                             </li>

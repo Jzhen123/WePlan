@@ -91,6 +91,11 @@ export default function formReducer(state, action) {
                         tempState.errors.password = "Your email or password don't match any user. Did you mean to Sign Up?"
                     }
                     return tempState
+                case "clearForm":         
+                    tempState.values.username = "";
+                    tempState.values.password = "";
+                    tempState.canSubmit = false;
+                    return tempState;
                 default:
                     console.log("action.type not found");
             }
