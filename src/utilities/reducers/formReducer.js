@@ -91,7 +91,7 @@ export default function formReducer(state, action) {
                         tempState.errors.password = "Your email or password don't match any user. Did you mean to Sign Up?"
                     }
                     return tempState
-                case "clearForm":         
+                case "clearForm":
                     tempState.values.username = "";
                     tempState.values.password = "";
                     tempState.canSubmit = false;
@@ -138,8 +138,33 @@ export default function formReducer(state, action) {
                     console.log("action.type not found");
             }
             break;
-            case "INVITE MEMBERS":
-                
+        case "INVITE MEMBERS":
+            switch (action.type) {
+                case "onChange": // Checking for errors and saving values for every input 
+                    tempState.values[action.field] = action.payload
+                    return tempState;
+
+                case "onSubmit":
+                    tempState.errors = {};
+
+                    if (!tempState.values.email) {
+                        tempState.errors.email = "Email address is required";
+                    } else if (!/\S+@\S+\.\S+/.test(tempState.values.email)) {
+                        tempState.errors.email = "Email address format is invalid";
+                    }
+                    if (Object.keys(tempState.errors).length === 0 && tempState.values.email.length > 4) {
+                        tempState.canSubmit = true
+                    }
+                    return tempState
+                case "inviteFailed":
+                    tempState.errors = {};
+                    tempState.canSubmit = false
+
+                    tempState.errors.email = "Invite was unsuccessful."
+                    return tempState;
+                }
+
+
         default:
             return state;
     }

@@ -29,12 +29,16 @@ export const GroupHelper = () => {
 
     // }
 
-    // function addMember(){
-
-    // }
+    function invite(formData) {
+        axiosHelper({
+            data: formData,
+            method: 'post',
+            url: '/api/group/invite',
+        })
+    }
     
 
-    return { createGroup }
+    return { createGroup, invite }
 }
 
 export const GroupProvider = (props) => {
