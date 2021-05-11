@@ -3,9 +3,9 @@ export default function formReducer(state, action) {
     // console.log(action)
 
     switch (action.formType) {
-        case 'REGISTER':
+        case 'REGISTER': // Reducer cases for User registration form
             switch (action.type) {
-                case "onChange": // Checking for errors 
+                case "onChange": // Checking for errors and saving values for every input 
                     tempState.values[action.field] = action.payload
 
                     switch (action.field) {
@@ -22,10 +22,13 @@ export default function formReducer(state, action) {
                             } else if (action.payload.length === 0) {
                                 tempState.errors[action.field] = null
                             }
+                            break;
+                        default:
+                            console.log("action.field not found");
                     }
                     return tempState;
 
-                case "onSubmit": // 
+                case "onSubmit": // Checking for submit errors and then allows user to submit
                     tempState.errors = {};
 
                     if (!tempState.values.name) {
@@ -45,21 +48,23 @@ export default function formReducer(state, action) {
                         tempState.canSubmit = true
                     }
                     return tempState
-                case "registerFailed":
+                case "registerFailed": // Errors/Responses coming from API call
                     tempState = { ...state }
                     tempState.errors = {};
 
                     tempState.canSubmit = false
                     tempState.errors.email = "Email in use. Log in or try a different email!"
                     return tempState
+                default:
+                    console.log("action.type not found");
             }
-
-        case "LOGIN":
+            break;
+        case "LOGIN": // Reducer cases for User login form
             switch (action.type) {
-                case "onChange":
+                case "onChange": // Checking for errors and saving values for every input
                     tempState.values[action.field] = action.payload
                     return tempState;
-                case "onSubmit":
+                case "onSubmit": // Checking for submit errors and then allows user to submit
                     tempState.errors = {};
 
                     if (!tempState.values.username) {
@@ -76,7 +81,7 @@ export default function formReducer(state, action) {
                         tempState.canSubmit = true
                     }
                     return tempState
-                case "loginFailed":
+                case "loginFailed": // Errors/Responses coming from API call
                     tempState = { ...state }
                     let error = tempState.errors
                     tempState.errors = {};
@@ -86,11 +91,13 @@ export default function formReducer(state, action) {
                         tempState.errors.password = "Your email or password don't match any user. Did you mean to Sign Up?"
                     }
                     return tempState
+                default:
+                    console.log("action.type not found");
             }
-
-        case "CREATE GROUP":
+            break;
+        case "CREATE GROUP": // Reducer cases for User create a group form
             switch (action.type) {
-                case "onChange":
+                case "onChange": // Checking for errors and saving values for every input
                     switch (action.field) {
                         case "privacy":
                             if (tempState.values.privacy === "Public") {
@@ -101,16 +108,17 @@ export default function formReducer(state, action) {
                             return tempState
                         case "name":
                             tempState.values[action.field] = action.payload
-                            break
+                            break;
                         case "type_id":
                             tempState.values[action.field] = parseInt(action.payload)
-                            break
-
-
+                            break;
+                        default:
+                            console.log("action.field not found");
+                            break;
                     }
-                    return tempState
+                    return tempState;
 
-                case "onSubmit":
+                case "onSubmit": // Checking for submit errors and then allows user to submit
                     tempState.errors = {};
                     if (!tempState.values.name) {
                         tempState.errors.name = 'Name is required';
@@ -121,8 +129,10 @@ export default function formReducer(state, action) {
                     }
 
                     return tempState
+                default:
+                    console.log("action.type not found");
             }
-
+            break;
         default:
             return state;
     }
