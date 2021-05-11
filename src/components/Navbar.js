@@ -1,10 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../utilities/AuthContext';
-import GroupForm from './GroupForm';
-import Modal from '../components/Modal';
 function Navbar() {
     const { logout, userData } = useAuth();
-    const modal = useRef(null);
     const [header, setHeader] = useState("");
 
     useEffect(() => {
@@ -45,7 +42,7 @@ function Navbar() {
 
     return (<> {
         userData.name ? // Wait for userData before loading
-            <nav className="navbar navbar-expand-lg navbar-light bg-white border-bottom border-2 p-2 mb-2">
+            <nav className="navbar navbar-expand-lg navbar-light bg-white border-bottom border-2 p-2 mb-0">
                 <div className="container-fluid">
                     <a className="navbar-brand">We Plan</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,10 +88,6 @@ function Navbar() {
                         </ul>
                     </div>
                 </div>
-                {/* Modal for Creating Groups */}
-                <Modal ref={modal}>
-                    <GroupForm />
-                </Modal>
             </nav>
             : null
     } </>)

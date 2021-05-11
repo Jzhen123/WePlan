@@ -35,6 +35,6 @@
    visibility: hidden;
 }
 .fc-view-harness {
-    max-width: 81vw;
+    /* max-width: 81vw; */
     max-height: 93.5vh;
  }
