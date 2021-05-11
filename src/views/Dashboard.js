@@ -20,31 +20,37 @@ function Dashboard() {
                 {userData.name ? // Conditionally Rendering Dashboard until User Data is retrieved
                     <>
                         <div className="row">
-                            <div className="col-2 p-0 ms-2 me-4 mt-3" style={{ height: '91.5vh' }}>
+                            <div className="col-2">
                                 <div className="row mb-3">
-                                    <div className="col-9">
+                                    <div className="col-10">
                                         <h2 className="mb-1 pt-1">Groups</h2>
                                     </div>
-                                    <div className="col-3 text-center">
-                                       <div onClick={() => modal.current.open()} style={{fontSize:'30px', cursor: 'pointer'}}>+</div>
+                                    <div className="col-2 text-center">
+                                        <div onClick={() => modal.current.open()} style={{ fontSize: '3.25vh', cursor: 'pointer' }}>+</div>
                                     </div>
                                 </div>
+
                                 {/* Modal for Creating Groups */}
                                 <Modal ref={modal}>
                                     <GroupForm />
                                 </Modal>
 
+                                {/* Mapping and returning all of User's Groups */}
                                 {userData.groups.map((group, index) => {
-                                    {/* Mapping and returning all of User's Groups */ }
                                     return (
                                         <>
-                                        <h4 className="mb-3" key={index}>{group.name}</h4>
+                                            <div className="form-check mb-2" key={index}>
+                                                <input className="form-check-input mt-2" type="checkbox" value="" id={`Select ${index}`} checked />
+                                                <label className="form-check-label" for={`Select ${index}`}>
+                                                    <h4>{group.name}</h4>
+                                                </label>
+                                            </div>
                                         </>
                                     )
                                 })}
                             </div>
 
-                            <div className="col-9 p-0"> {/* FullCalendar Component that displays all Events */}
+                            <div className="col-10 p-0"> {/* FullCalendar Component that displays all Events */}
                                 <FullCalendar
                                     plugins={[timeGridPlugin, interactionPlugin, dayGridPlugin]}
                                     initialView="timeGridWeek"

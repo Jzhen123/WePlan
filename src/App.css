@@ -1,8 +1,9 @@
 .fc-header-toolbar {
    position: absolute;
    top: 0vh;
-   right: 0vw;
+   left: 0vw;
    width: 1px;
+   height: 1px;
 }
 
 .fc-toolbar-title {
@@ -35,6 +36,6 @@
    visibility: hidden;
 }
 .fc-view-harness {
-    /* max-width: 81vw; */
     max-height: 93.5vh;
+    max-width: 83.3vw;
  }
