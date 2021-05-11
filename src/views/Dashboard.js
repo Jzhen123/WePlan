@@ -14,6 +14,9 @@ function Dashboard() {
         <>
             <Navbar />
             <div className="container-fluid text-center">
+                {/* <li className="nav-item">
+                    <button type="button" class="btn btn-primary" onClick={() => modal.current.open()}>Create Group</button>
+                </li> */}
                 {userData.name ? // Conditionally Rendering Dashboard until User Data is retrieved
                     <>
                         <div className="row">
@@ -25,7 +28,7 @@ function Dashboard() {
                                         {/* Mapping and returning all of User's Groups */ }
                                         return (
                                             <h5 key={index}>{group.name}</h5>
-                                            )
+                                        )
                                     })}
                                 </div>
                             </div>

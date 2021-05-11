@@ -1,14 +1,24 @@
 .fc-header-toolbar {
    position: absolute;
-   top: 1vh;
-   right: 5vw;
+   top: 0vh;
+   right: 0vw;
+   width: 1px;
 }
 
-/* .fc-toolbar-title {
-   position: relative;
-   left: 5vw;
- } */
+.fc-toolbar-title {
+   visibility: hidden;
+ }
  
+ .fc-today-button {
+    visibility: hidden;
+ }
+ .fc-prev-button {
+   visibility: hidden;
+}
+.fc-next-button {
+   visibility: hidden;
+}
+
 .fc-dayGridMonth-button {
       visibility: hidden;
 }
