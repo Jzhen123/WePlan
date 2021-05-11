@@ -23,7 +23,9 @@ function Dashboard() {
                                     <h3><br></br> Your Groups:</h3><br></br>
                                     {userData.groups.map((group, index) => {
                                         {/* Mapping and returning all of User's Groups */ }
-                                        return <h5 key={index}>{group.name}</h5>
+                                        return (
+                                            <h5 key={index}>{group.name}</h5>
+                                            )
                                     })}
                                 </div>
                             </div>
@@ -32,6 +34,7 @@ function Dashboard() {
                                 <FullCalendar
                                     plugins={[timeGridPlugin, interactionPlugin, dayGridPlugin]}
                                     initialView="timeGridWeek"
+                                    nowIndicator={true}
                                     headerToolbar={{
                                         left: 'prev,next today',
                                         center: 'title',

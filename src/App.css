@@ -1,29 +1,30 @@
-/* .fc-toolbar { */
-    /* max-height: 3vh; */
-    /* position: fixed; */
-    /* top: 2.5vh;
-    left: 45vw; */
-    /* margin-top: 1vh; */
-/* } */
+.fc-header-toolbar {
+   position: absolute;
+   top: 1vh;
+   right: 5vw;
+}
 
-.fc {
+/* .fc-toolbar-title {
+   position: relative;
+   left: 5vw;
+ } */
+ 
+.fc-dayGridMonth-button {
+      visibility: hidden;
+}
+
+.fc-timeGridWeek-button {
+   visibility: hidden;
+}
+
+.fc-timeGridDay-button {
+   visibility: hidden;
+}
+
+.fc--button {
+   visibility: hidden;
+}
+.fc-view-harness {
     max-width: 81vw;
     max-height: 93.5vh;
-    /* margin-top: 0; */
-    /* margin: auto; */
  }
-
- /* .fc-toolbar-title {
-    position: relative;
- }
-
- .fc-today-button {
-    position: absolute;
-    right: 630px;
-    top: -15px;
- }
-
- .fc-button-group {
-    position: absolute;
-    right: 510px;
- } */
