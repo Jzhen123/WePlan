@@ -13,11 +13,15 @@ function Navbar() {
         }
     }, [userData.name])
 
+   useEffect(() => {
+    let title = (document.getElementsByClassName("fc-toolbar-title"))[0];
+    if (title) { setHeader(title.innerHTML); }
+   }, [header])
+
     // Mimicing fullCalendars toolbar functionality but will any styling I want.
     const toggleFullCalendarView = (event) => {
         let viewSelect = document.getElementById("viewSelect");
         let currentView = viewSelect.options[viewSelect.selectedIndex].value;
-        let title = (document.getElementsByClassName("fc-toolbar-title"))[0];
 
         if (currentView === "Day") {
             (document.getElementsByClassName("fc-timeGridDay-button"))[0].click();
@@ -36,7 +40,7 @@ function Navbar() {
             (document.getElementsByClassName("fc-next-button"))[0].click();
             document.getElementById("todayButton").disabled = false;
         }
-        setHeader(title.innerHTML);
+        setHeader("")
     }
 
     return (<> {
