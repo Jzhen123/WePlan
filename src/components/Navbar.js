@@ -1,8 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../utilities/AuthContext';
+import Modal from './Modal'
+import PlanForm from './PlanForm';
+
 function Navbar() {
     const { logout, userData } = useAuth();
     const [header, setHeader] = useState("");
+    const modal = useRef(null);
 
     useEffect(() => {
         if (userData.name) {
@@ -10,10 +14,10 @@ function Navbar() {
         }
     }, [userData.name])
 
-   useEffect(() => {
-    let title = (document.getElementsByClassName("fc-toolbar-title"))[0];
-    if (title) { setHeader(title.innerHTML); }
-   }, [header])
+    useEffect(() => {
+        let title = (document.getElementsByClassName("fc-toolbar-title"))[0];
+        if (title) { setHeader(title.innerHTML); }
+    }, [header])
 
     // Mimicing fullCalendars toolbar functionality but will any styling I want.
     const toggleFullCalendarView = (event) => {
@@ -44,6 +48,7 @@ function Navbar() {
         userData.name ? // Wait for userData before loading
             <nav className="navbar navbar-expand-lg navbar-light bg-white border-bottom border-2 p-2 mb-0">
                 <div className="container-fluid">
+                    <button className="btn btn-light border bg-white me-3" type="button">Menu</button>
                     <a className="navbar-brand">We Plan</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
@@ -52,16 +57,22 @@ function Navbar() {
                     {/* Today and Previous/Next buttons */}
                     <div className="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul className="navbar-nav mb-2 mb-lg-0 me-auto">
-                            <button id="todayButton" className="btn btn-light border bg-white" onClick={(e) => toggleFullCalendarView(e.target.value)} value="Today" type="button">Today</button>
-                            <div className="btn-group ps-5 ms-5" role="group" aria-label="Basic example">
-                                <button className="btn btn-light border-none bg-white" onClick={(e) => toggleFullCalendarView(e.target.value)} value="Previous" type="button">&#60;</button>
-                                <button className="btn btn-light border-none bg-white" onClick={(e) => toggleFullCalendarView(e.target.value)} value="Next" type="button">&#62;</button>
+                            <button className="btn btn-light border bg-white me-3" onClick={() => modal.current.open()} type="button">Make a Plan</button>
+                            <button value="Today" id="todayButton" className="btn btn-light border bg-white me-3" onClick={(e) => toggleFullCalendarView(e.target.value)} type="button">Today</button>
+                            <div className="btn-group" role="group" aria-label="Basic example">
+                                <button value="Previous" className="btn btn-light border-none bg-white" onClick={(e) => toggleFullCalendarView(e.target.value)} type="button">&#60;</button>
+                                <button value="Next" className="btn btn-light border-none bg-white" onClick={(e) => toggleFullCalendarView(e.target.value)} type="button">&#62;</button>
                             </div>
                         </ul>
 
+                        {/* Modal for Creating Plans */}
+                        <Modal ref={modal}>
+                            <PlanForm />
+                        </Modal>
+
                         {/* Header/Center Text */}
                         <ul className="navbar-nav mb-2 mb-lg-0">
-                            <h3 className="mb-0 mx-auto" id="calendarHeader">{header}</h3>
+                            <h3 className="mb-0" id="calendarHeader">{header}</h3>
                         </ul>
 
                         {/* Dropdown for chooseing view based on timeframe */}

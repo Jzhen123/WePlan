@@ -9,7 +9,6 @@ import GroupForm from '../components/GroupForm'
 import Modal from '../components/Modal';
 
 function Dashboard() {
-
     const { userData } = useAuth();
     const modal = useRef(null);
 
@@ -20,7 +19,7 @@ function Dashboard() {
                 {userData.name ? // Conditionally Rendering Dashboard until User Data is retrieved
                     <>
                         <div className="row">
-                            <div className="col-2">
+                            <div className="col-2 p-4 pt-2">
                                 <div className="row mb-3">
                                     <div className="col-10">
                                         <h2 className="mb-1 pt-1">Groups</h2>
@@ -34,23 +33,31 @@ function Dashboard() {
                                 <Modal ref={modal}>
                                     <GroupForm />
                                 </Modal>
+                                <div className="row mb-3">
 
-                                {/* Mapping and returning all of User's Groups */}
-                                {userData.groups.map((group, index) => {
-                                    return (
-                                        <>
-                                            <div className="form-check mb-2" key={index}>
-                                                <input className="form-check-input mt-2" type="checkbox" value="" id={`Select ${index}`} checked />
-                                                <label className="form-check-label" for={`Select ${index}`}>
-                                                    <h4>{group.name}</h4>
-                                                </label>
-                                            </div>
-                                        </>
-                                    )
-                                })}
+                                    {/* Mapping and returning all of User's Groups */}
+                                    {userData.groups.map((group, index) => {
+                                        return (
+                                            <>
+                                                <div className="form-check mb-2" key={index}>
+                                                    <input className="form-check-input mt-2" type="checkbox" value="" id={`Select ${index}`} checked />
+                                                    <label className="form-check-label" for={`Select ${index}`}>
+                                                        <h4>{group.name}</h4>
+                                                    </label>
+                                                </div>
+                                            </>
+                                        )
+                                    })}
+                                </div>
+
+                                {/* Section for preset events */}
+                                <div className="row">
+                                    <h2 className="p-0">Presets</h2>
+                                </div>
                             </div>
 
-                            <div className="col-10 p-0"> {/* FullCalendar Component that displays all Events */}
+                            {/* FullCalendar Component that displays all Events */}
+                            <div className="col-10 p-0">
                                 <FullCalendar
                                     plugins={[timeGridPlugin, interactionPlugin, dayGridPlugin]}
                                     initialView="timeGridWeek"
@@ -70,10 +77,9 @@ function Dashboard() {
                                 />
                             </div>
                         </div>
-
                     </>
                     :
-                    <div>Loading. Please Wait!</div> // Temporary Loading Screen
+                    <h1 className="text-center mt-5">Loading. Please Wait!</h1> // Temporary Loading Screen
                 }
             </div>
         </>
