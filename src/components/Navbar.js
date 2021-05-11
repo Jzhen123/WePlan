@@ -4,7 +4,7 @@ import Modal from './Modal'
 import PlanForm from './PlanForm';
 
 function Navbar() {
-    const { logout, userData } = useAuth();
+    const { logout, userData, setView } = useAuth();
     const [header, setHeader] = useState("");
     const modal = useRef(null);
 
@@ -49,7 +49,7 @@ function Navbar() {
             <nav className="navbar navbar-expand-lg navbar-light bg-white border-bottom border-2 p-2 mb-0">
                 <div className="container-fluid">
                     <button className="btn btn-light border bg-white me-3" type="button">Menu</button>
-                    <a className="navbar-brand">We Plan</a>
+                    <a className="navbar-brand" onClick={() => setView("calendar")}>We Plan</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>

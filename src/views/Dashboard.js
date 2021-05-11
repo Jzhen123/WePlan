@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useAuth } from '../utilities/AuthContext';
 import Navbar from '../components/Navbar';
 import FullCalendar from '@fullcalendar/react'
@@ -7,6 +7,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import GroupForm from '../components/GroupForm'
 import Modal from '../components/Modal';
+import Group from '../components/Group';
 
 function Dashboard() {
     const { userData, view, setView } = useAuth();
@@ -84,7 +85,7 @@ function Dashboard() {
                                 {userData.groups.map((group, index) => {
                                     return (
                                         view === group.name && (
-                                            <h4 key={index}>{group.name}</h4>
+                                            <Group key={index} data={group}/>
                                         )
                                     )
                                 })}
