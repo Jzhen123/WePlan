@@ -138,6 +138,8 @@ export default function formReducer(state, action) {
                     console.log("action.type not found");
             }
             break;
+            case "INVITE MEMBERS":
+                
         default:
             return state;
     }

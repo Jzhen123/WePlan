@@ -85,7 +85,7 @@ function Dashboard() {
                                 {userData.groups.map((group, index) => {
                                     return (
                                         view === group.name && (
-                                            <Group key={index} data={group}/>
+                                            <Group key={index} user={userData} group={group}/>
                                         )
                                     )
                                 })}
