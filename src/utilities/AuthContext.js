@@ -11,6 +11,7 @@ export const AuthHelper = () => {
     const [token, setToken] = useState('');
     const [userData, setUserData] = useState({});
     const location = useLocation();
+    const [view, setView] = useState("calendar");
 
     // Retaining General and OAuth Data for User
     useEffect(() => {
@@ -108,7 +109,7 @@ export const AuthHelper = () => {
         }
     }
 
-    return { token, register, login, logout, userData, index }
+    return { token, register, login, logout, userData, index, view, setView }
 }
 
 // custom Provider component
