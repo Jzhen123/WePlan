@@ -8,9 +8,9 @@ const PlanForm = ({ data }) => {
     const initialFormState = {
         formType: "CREATE EVENT",
         values: {
-            dayName: data.newEvent.DayName,
+            // dayName: data.newEvent.DayName,
             dayNumber: data.newEvent.DayNumber,
-            hour: data.newEvent.Hour,
+            hour: data.newEvent.StartHour,
             month: data.newEvent.Month,
             year: data.newEvent.Year,
             timeZone: data.newEvent.TimeZone
@@ -24,7 +24,7 @@ const PlanForm = ({ data }) => {
 
 
     useEffect(() => {
-       console.log(formState)
+        console.log(formState)
     }, [formState])
 
     const failedGroupCreate = (e) => {
@@ -42,36 +42,45 @@ const PlanForm = ({ data }) => {
 
     return (
         <div className="row justify-content-md-center">
-            <div className="col-10 card p-5">
-                <h1 className="mb-2">Event Details</h1>
-                <h1>{formState.values.dayName}</h1>
-                <h1>{formState.values.dayNumber}</h1>
-                <h1>{formState.values.hour}</h1>
-                <h1>{formState.values.month}</h1>
-                <h1>{formState.values.year}</h1>
-                <h1>{formState.values.timeZone}</h1>
+            <div className="col-8 card p-5">
+                <h1 className="mb-5">Event Details</h1>
 
+                <form onSubmit={handleSubmit} >
+                    {/* Name of Event */}
+                    <div class="form-floating mb-3 col-12">
+                        <input type="text" class="form-control" name="name" onChange={(e) => handleChange(e)} id="nameInput" placeholder="name@example.com" />
+                        <label for="nameInput">Name</label>
+                        <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.name ? 'visible' : 'hidden' }}>{formState.errors.name}</div>
+                    </div>
 
-                {/* <form onSubmit={handleSubmit} >
-                        <div class="form-floating mb-3 col-12">
-                            <input type="text" class="form-control" name="name" onChange={(e) => handleChange(e)} id="nameInput" placeholder="name@example.com" />
-                            <label for="nameInput">Name</label>
-                            <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.name ? 'visible' : 'hidden' }}>{formState.errors.name}</div>
+                    {/* Day/Start time and End time of Event */}
+                    <div className="row  mb-3 ">
+                        <div class="form-floating mb-3 col-6">
+                            <input type="text" class="form-control" id="dayInput" name="day" defaultValue={formState.values.dayNumber} />
+                            <label className="ps-4" for="dayInput">Day</label>
                         </div>
-
-                        <div class="form-floating mb-3 col-12">
-                            <input type="text" class="form-control" name="email" onChange={(e) => handleChange(e)} id="emailInput" placeholder="name@example.com" />
-                            <label for="emailInput">Email address</label>
-                            <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.email ? 'visible' : 'hidden' }}>{formState.errors.email}</div>
+                        <div class="form-floating mb-3 col-3">
+                            <input type="text" class="form-control" id="startTimeInput" name="startTime" defaultValue={formState.values.hour} />
+                            <label className="ps-4" for="startTimeInput">Start Time (Military Time)</label>
                         </div>
-
-                        <div class="form-floating mb-3 col-12">
-                            <input type="password" class="form-control" name="password" onChange={(e) => handleChange(e)} id="passwordInput" placeholder="Password" />
-                            <label for="passwordInput">Password</label>
-                            <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.password ? 'visible' : 'hidden' }}>{formState.errors.password}</div>
+                        <div class="form-floating mb-3 col-3">
+                            <input type="text" class="form-control" id="endTimeInput" name="endTime" value={""} />
+                            <label className="ps-4" for="endTimeInput">End Time ({formState.values.timeZone})</label>
                         </div>
-                        <button type="submit" className="btn btn-primary col-12">Sign Up</button>
-                    </form> */}
+                    </div>
+                    {/* Month/Year of Event */}
+                    <div className="row  mb-3 ">
+                        <div class="form-floating mb-3 col-6">
+                            <input type="text" class="form-control" id="monthInput" name="month" defaultValue={formState.values.month} />
+                            <label className="ps-4" for="monthInput">Month</label>
+                        </div>
+                        <div class="form-floating mb-3 col-6">
+                            <input type="text" class="form-control" id="yearInput" name="year" defaultValue={formState.values.year} />
+                            <label className="ps-4" for="yearInput">Year</label>
+                        </div>
+                    </div>
+                    <button type="submit" className="btn btn-primary col-12">Plan!</button>
+                </form>
             </div>
         </div>
     )

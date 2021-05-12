@@ -9,14 +9,15 @@ export default function calendarReducer(state, action) {
             let newEvent = action.payload.date.toString();
             console.log(newEvent)
             newEvent = newEvent.split(" ")
-            tempState.newEvent['DayName'] = newEvent[0];
+            // tempState.newEvent['DayName'] = newEvent[0];
             tempState.newEvent['Month'] = newEvent[1];
             tempState.newEvent['DayNumber'] = newEvent[2];
             tempState.newEvent['Year'] = newEvent[3];
-            tempState.newEvent['Hour'] = newEvent[4];
+            tempState.newEvent['StartHour'] = newEvent[4];
             tempState.newEvent['TimeZone'] = newEvent[5];
-        return tempState;
-        
+
+            return tempState;
+
         default:
             return state;
 
