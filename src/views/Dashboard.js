@@ -1,13 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { useAuth } from '../utilities/AuthContext';
 import Navbar from '../components/Navbar';
-import FullCalendar from '@fullcalendar/react'
-import timeGridPlugin from '@fullcalendar/timegrid'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import interactionPlugin from '@fullcalendar/interaction'
 import GroupForm from '../components/GroupForm'
 import Modal from '../components/Modal';
 import Group from '../components/Group';
+import Calendar from '../components/Calendar';
 
 function Dashboard() {
     const { userData, view, setView } = useAuth();
@@ -61,25 +58,7 @@ function Dashboard() {
 
                             {/* FullCalendar Component that displays all Events if view state is calendar*/}
                             <div className="col-10 p-0">
-                                {view === "calendar" && (
-                                    <FullCalendar
-                                        plugins={[timeGridPlugin, interactionPlugin, dayGridPlugin]}
-                                        initialView="timeGridWeek"
-                                        nowIndicator={true}
-                                        headerToolbar={{
-                                            left: 'prev,next today',
-                                            center: 'title',
-                                            right: 'dayGridMonth, timeGridWeek, timeGridDay'
-                                        }}
-                                        selectable='true'
-                                        dateClick={function (info) {
-                                            alert('clicked ' + info.dateStr);
-                                        }}
-                                        select={function (info) {
-                                            alert('selected ' + info.startStr + ' to ' + info.endStr);
-                                        }}
-                                    />
-                                )}
+                                {view === "calendar" && ( <Calendar /> )}
 
                                 {/* Conditionally render group info based on view state */}
                                 {userData.groups.map((group, index) => {
