@@ -3,30 +3,28 @@ import { useAuth } from '../utilities/AuthContext';
 import { useGroup } from "../utilities/GroupContext"
 import formReducer from '../utilities/reducers/formReducer';
 
-const initialFormState = {
-    formType: "CREATE GROUP",
-    values: {
-        created_by_user_id: "",
-        name: "",
-        privacy: "Public",
-        type_id: 1,
-        active: 1,
-    },
-    errors: {},
-    canSubmit: false,
-}
+const PlanForm = ({ data }) => {
 
-const PlanForm = () => {
-
+    const initialFormState = {
+        formType: "CREATE EVENT",
+        values: {
+            dayName: data.newEvent.DayName,
+            dayNumber: data.newEvent.DayNumber,
+            hour: data.newEvent.Hour,
+            month: data.newEvent.Month,
+            year: data.newEvent.Year,
+            timeZone: data.newEvent.TimeZone
+        },
+        errors: {},
+        canSubmit: false,
+    }
     const { userData } = useAuth();
     const { createGroup } = useGroup();
     const [formState, dispatch] = useReducer(formReducer, initialFormState);
 
+
     useEffect(() => {
-        formState.values.created_by_user_id = userData.id
-        if (formState.canSubmit === true) {
-            createGroup(formState.values, failedGroupCreate)
-        }
+       console.log(formState)
     }, [formState])
 
     const failedGroupCreate = (e) => {
@@ -44,34 +42,36 @@ const PlanForm = () => {
 
     return (
         <div className="row justify-content-md-center">
-            <div className="col-5 card p-5">
-                <h1 className="mb-5 text-center">What is Your Plan for?</h1>
-                <form onSubmit={handleSubmit} >
-                    <div className="form-floating mb-3">
-                        <input type="text" className="form-control" name="name" onChange={(e) => handleChange(e)} id="nameInput" placeholder="name@example.com" />
-                        <label for="nameInput">Name</label>
-                        <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.name ? 'visible' : 'hidden' }}>{formState.errors.name}</div>
-                    </div>
+            <div className="col-10 card p-5">
+                <h1 className="mb-2">Event Details</h1>
+                <h1>{formState.values.dayName}</h1>
+                <h1>{formState.values.dayNumber}</h1>
+                <h1>{formState.values.hour}</h1>
+                <h1>{formState.values.month}</h1>
+                <h1>{formState.values.year}</h1>
+                <h1>{formState.values.timeZone}</h1>
 
-                    <div className="row">
-                        <div className="form-floating col-10">
-                            <select className="form-select" id="floatingSelect" name="type_id" onChange={(e) => handleChange(e)} aria-label="Floating label select example">
-                                <option value="1" selected>Friends</option>
-                                <option value="2">Work</option>
-                                <option value="3">Family</option>
-                                <option value="4">Roommates</option>
-                            </select>
-                            <label for="floatingSelect">&nbsp;&nbsp;&nbsp;&nbsp;Choose Group Type</label>
+
+                {/* <form onSubmit={handleSubmit} >
+                        <div class="form-floating mb-3 col-12">
+                            <input type="text" class="form-control" name="name" onChange={(e) => handleChange(e)} id="nameInput" placeholder="name@example.com" />
+                            <label for="nameInput">Name</label>
+                            <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.name ? 'visible' : 'hidden' }}>{formState.errors.name}</div>
                         </div>
 
-                        <div className="form-check form-switch col-2 pt-3">
-                            <input className="form-check-input" type="checkbox" name="privacy" onChange={(e) => handleChange(e)} id="flexSwitchCheckDefault" />
-                            <label className="form-check-label" for="flexSwitchCheckDefault">Private?</label>
+                        <div class="form-floating mb-3 col-12">
+                            <input type="text" class="form-control" name="email" onChange={(e) => handleChange(e)} id="emailInput" placeholder="name@example.com" />
+                            <label for="emailInput">Email address</label>
+                            <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.email ? 'visible' : 'hidden' }}>{formState.errors.email}</div>
                         </div>
-                    </div>
 
-                    <button type="submit" className="btn btn-primary col-12 mt-5">Create Plan</button>
-                </form>
+                        <div class="form-floating mb-3 col-12">
+                            <input type="password" class="form-control" name="password" onChange={(e) => handleChange(e)} id="passwordInput" placeholder="Password" />
+                            <label for="passwordInput">Password</label>
+                            <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.password ? 'visible' : 'hidden' }}>{formState.errors.password}</div>
+                        </div>
+                        <button type="submit" className="btn btn-primary col-12">Sign Up</button>
+                    </form> */}
             </div>
         </div>
     )

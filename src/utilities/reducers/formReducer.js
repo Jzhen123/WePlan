@@ -138,7 +138,7 @@ export default function formReducer(state, action) {
                     console.log("action.type not found");
             }
             break;
-        case "INVITE MEMBERS":
+        case "INVITE MEMBERS": // Reducer cases for Group invitation form
             switch (action.type) {
                 case "onChange": // Checking for errors and saving values for every input 
                     tempState.values[action.field] = action.payload
@@ -163,8 +163,6 @@ export default function formReducer(state, action) {
                     tempState.errors.email = "Invite was unsuccessful."
                     return tempState;
                 }
-
-
         default:
             return state;
     }
