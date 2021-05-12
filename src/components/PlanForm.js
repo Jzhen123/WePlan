@@ -44,17 +44,28 @@ const PlanForm = ({ data }) => {
         <div className="row justify-content-md-center">
             <div className="col-8 card p-5">
                 <h1 className="mb-5">Event Details</h1>
+                <form onSubmit={handleSubmit}>
 
-                <form onSubmit={handleSubmit} >
                     {/* Name of Event */}
-                    <div class="form-floating mb-3 col-12">
-                        <input type="text" class="form-control" name="name" onChange={(e) => handleChange(e)} id="nameInput" placeholder="name@example.com" />
-                        <label for="nameInput">Name</label>
-                        <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.name ? 'visible' : 'hidden' }}>{formState.errors.name}</div>
+                    <div className="row mb-3">
+                        <div class="form-floating mb-3 col-6">
+                            <input type="text" class="form-control" name="name" onChange={(e) => handleChange(e)} id="nameInput" placeholder="name@example.com" />
+                            <label className="ps-4" for="nameInput">Name</label>
+                            <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.name ? 'visible' : 'hidden' }}>{formState.errors.name}</div>
+                        </div>
+                        <div class="form-floating mb-3 col-6">
+                            <select className="form-select p-0 ps-3 pt-1">
+                                {userData.groups.map((group, index) => {
+                                    return (
+                                        <option key={index} value={group.name}>{group.name}</option>
+                                    )
+                                })}
+                            </select>
+                        </div>
                     </div>
 
                     {/* Day/Start time and End time of Event */}
-                    <div className="row  mb-3 ">
+                    <div className="row mb-3">
                         <div class="form-floating mb-3 col-6">
                             <input type="text" class="form-control" id="dayInput" name="day" defaultValue={formState.values.dayNumber} />
                             <label className="ps-4" for="dayInput">Day</label>
@@ -68,6 +79,7 @@ const PlanForm = ({ data }) => {
                             <label className="ps-4" for="endTimeInput">End Time ({formState.values.timeZone})</label>
                         </div>
                     </div>
+
                     {/* Month/Year of Event */}
                     <div className="row  mb-3 ">
                         <div class="form-floating mb-3 col-6">
