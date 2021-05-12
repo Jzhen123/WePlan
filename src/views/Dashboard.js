@@ -44,8 +44,8 @@ function Dashboard() {
                                         <div className="form-check mb-2" key={index} style={{ position: 'relative' }}>
                                             <input className="form-check-input mt-2" type="checkbox" value="" id={`Select ${index}`} checked />
                                             <label className="form-check-label" for={`Select ${index}`}>
-                                                <h4>{group.name}</h4>
                                             </label>
+                                                <h4 onClick={() => setView(group.name)} style={{ position: 'absolute', top:'.18vh', left: '1.5vw' }}>{group.name}</h4>
                                             <svg onClick={() => setView(group.name)} style={{ position: 'absolute', right: '0px', top: '1vh' }} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16"> <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" /> <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
                                                 <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
                                             </svg>
@@ -62,30 +62,30 @@ function Dashboard() {
                             {/* FullCalendar Component that displays all Events if view state is calendar*/}
                             <div className="col-10 p-0">
                                 {view === "calendar" && (
-                                        <FullCalendar
-                                            plugins={[timeGridPlugin, interactionPlugin, dayGridPlugin]}
-                                            initialView="timeGridWeek"
-                                            nowIndicator={true}
-                                            headerToolbar={{
-                                                left: 'prev,next today',
-                                                center: 'title',
-                                                right: 'dayGridMonth, timeGridWeek, timeGridDay'
-                                            }}
-                                            selectable='true'
-                                            dateClick={function (info) {
-                                                alert('clicked ' + info.dateStr);
-                                            }}
-                                            select={function (info) {
-                                                alert('selected ' + info.startStr + ' to ' + info.endStr);
-                                            }}
-                                        />
-                                    )}
-                                
+                                    <FullCalendar
+                                        plugins={[timeGridPlugin, interactionPlugin, dayGridPlugin]}
+                                        initialView="timeGridWeek"
+                                        nowIndicator={true}
+                                        headerToolbar={{
+                                            left: 'prev,next today',
+                                            center: 'title',
+                                            right: 'dayGridMonth, timeGridWeek, timeGridDay'
+                                        }}
+                                        selectable='true'
+                                        dateClick={function (info) {
+                                            alert('clicked ' + info.dateStr);
+                                        }}
+                                        select={function (info) {
+                                            alert('selected ' + info.startStr + ' to ' + info.endStr);
+                                        }}
+                                    />
+                                )}
+
                                 {/* Conditionally render group info based on view state */}
                                 {userData.groups.map((group, index) => {
                                     return (
                                         view === group.name && (
-                                            <Group key={index} user={userData} group={group}/>
+                                            <Group key={index} user={userData} group={group} />
                                         )
                                     )
                                 })}

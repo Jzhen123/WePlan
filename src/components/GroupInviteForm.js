@@ -21,7 +21,7 @@ function GroupInviteForm({ user, group }) {
         formState.values.user_id = user.id
         formState.values.group_id = group.id
         if (formState.canSubmit === true) {
-            invite(formState.values, failedGroupInvite)
+            invite(formState.values, failedGroupInvite);
         }
 
     }, [formState])
