@@ -16,7 +16,7 @@ const initialFormState = {
     canSubmit: false,
 }
 
-const GroupForm = () => {
+const PlanForm = () => {
 
     const { userData } = useAuth();
     const { createGroup } = useGroup();
@@ -45,7 +45,7 @@ const GroupForm = () => {
     return (
         <div className="row justify-content-md-center">
             <div className="col-5 card p-5">
-                <h1 className="mb-5 text-center">What is Your Group for?</h1>
+                <h1 className="mb-5 text-center">What is Your Plan for?</h1>
                 <form onSubmit={handleSubmit} >
                     <div className="form-floating mb-3">
                         <input type="text" className="form-control" name="name" onChange={(e) => handleChange(e)} id="nameInput" placeholder="name@example.com" />
@@ -70,11 +70,11 @@ const GroupForm = () => {
                         </div>
                     </div>
 
-                    <button type="submit" className="btn btn-primary col-12 mt-5">Create Group</button>
+                    <button type="submit" className="btn btn-primary col-12 mt-5">Create Plan</button>
                 </form>
             </div>
         </div>
     )
 }
 
-export default GroupForm;
+export default PlanForm;
