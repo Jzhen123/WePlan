@@ -173,18 +173,13 @@ export default function formReducer(state, action) {
                 tempState.errors = {};
 
                 if (!tempState.values.name) { tempState.errors.name = 'Name is required';}
-
                 if (!tempState.values.groupName) { tempState.errors.groupName = "Group is required";} 
-
                 if (!tempState.values.dayNumber) { tempState.errors.dayNumber = "Day required"} 
                 else if (!(Number.isInteger(parseInt(tempState.values.dayNumber)))) {tempState.errors.dayNumber = "Must be in number format"}
-
-                if (!tempState.values.startTime) { tempState.errors.startTime = "Must have a Start Time!"} 
-                else if (!/(?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d)/.test(tempState.values.startTime)) { tempState.errors.startTime = "Time must follow HH:MM:SS format"}
-                
+                if (!tempState.values.hour) { tempState.errors.hour = "Must have a Start Time!"} 
+                else if (!/(?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d)/.test(tempState.values.hour)) { tempState.errors.hour = "Time must follow HH:MM:SS format"}
                 if (!tempState.values.endTime) { tempState.errors.endTime = "Must have a End Time!"}
                 else if (!/(?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d)/.test(tempState.values.endTime)) { tempState.errors.endTime = "Time must follow HH:MM:SS format"}
-                
                 if (!tempState.values.year) { tempState.errors.endTime = "Must have a Year"}
 
                 if (Object.keys(tempState.errors).length === 0 && tempState.values.name.length > 0) {
@@ -192,7 +187,6 @@ export default function formReducer(state, action) {
                 }
 
                 return tempState
-                
             }
                 default:
             return state;

@@ -38,14 +38,7 @@ function Calendar() {
                     // alert('Clicked on: ' + info.dateStr);
                     // alert('Current view: ' + info.view.type);
                 }}
-                events={[
-                    {
-                        id: '1',
-                        title: 'Demo Day!',
-                        start: '2021-05-13T13:00:00-04:00',
-                        end: '2021-05-13T14:30:00-04:00'
-                    }
-                ]}
+                events={calendarState.events}
             />
             <Modal ref={modal}>
                 <PlanForm data={calendarState}/>

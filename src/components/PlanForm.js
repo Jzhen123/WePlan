@@ -1,10 +1,25 @@
 import React, { useReducer, useEffect, useRef } from 'react';
+import { useHistory } from 'react-router';
 import { useAuth } from '../utilities/AuthContext';
 import { useCalendar } from '../utilities/CalendarContext';
 import { useGroup } from "../utilities/GroupContext"
 import formReducer from '../utilities/reducers/formReducer';
 
 const PlanForm = ({ data }) => {
+    var months = {
+        'Jan' : '01',
+        'Feb' : '02',
+        'Mar' : '03',
+        'Apr' : '04',
+        'May' : '05',
+        'Jun' : '06',
+        'Jul' : '07',
+        'Aug' : '08',
+        'Sep' : '09',
+        'Oct' : '10',
+        'Nov' : '11',
+        'Dec' : '12'
+    }
     // {
     //     id: '1',
     //     title: 'Demo Day!',
@@ -26,18 +41,26 @@ const PlanForm = ({ data }) => {
         canSubmit: false,
     }
     const { userData } = useAuth();
-    const { calendarData } = useCalendar();
+    const { calendarState } = useCalendar();
+    const history = useHistory();
     const [formState, dispatch] = useReducer(formReducer, initialFormState);
 
     useEffect(() => {
         if (formState.canSubmit === true) {
-            // register(formState, failedRegister)
+            let timeZone = formState.values.timeZone.split('GMT-').join('');
+            calendarState.events.push({
+                id: "temp",
+                title: formState.values.name,
+                start: `${formState.values.year}-${months[formState.values.month]}-${formState.values.dayNumber}T${formState.values.hour}-${timeZone}`,
+                end: `${formState.values.year}-${months[formState.values.month]}-${formState.values.dayNumber}T${formState.values.endTime}-${timeZone}`,
+            })
+            if (document.getElementById("click")){
+                document.getElementById("click").click()
+            }
+            history.push('/')
         }
-    }, [formState])
 
-    const failedGroupCreate = (e) => {
-        console.log(e.response.data)
-    }
+    }, [formState])
 
     const handleChange = (e) => {
         dispatch({ formType: formState.formType, type: "onChange", field: e.target.name, payload: e.target.value, })

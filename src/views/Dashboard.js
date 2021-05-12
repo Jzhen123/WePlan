@@ -5,14 +5,18 @@ import GroupForm from '../components/GroupForm'
 import Modal from '../components/Modal';
 import Group from '../components/Group';
 import Calendar from '../components/Calendar';
+import { useCalendar } from '../utilities/CalendarContext';
+import { useHistory } from 'react-router';
 
 function Dashboard() {
     const { userData, view, setView } = useAuth();
     const modal = useRef(null);
+    const { calendarState } = useCalendar();
+    const history = useHistory();
 
     useEffect(() => {
         console.log("View:", view)
-    }, [view])
+    }, [view, history, calendarState])
 
     return (
         <>
