@@ -5,9 +5,7 @@ export default function calendarReducer(state, action) {
     switch (action.type) {
         case "dateClick":
 
-            console.log(action.payload)
             let newEvent = action.payload.date.toString();
-            console.log(newEvent)
             newEvent = newEvent.split(" ")
             // tempState.newEvent['DayName'] = newEvent[0];
             tempState.newEvent['Month'] = newEvent[1];

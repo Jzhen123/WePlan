@@ -11,7 +11,7 @@ function Dashboard() {
     const modal = useRef(null);
 
     useEffect(() => {
-        console.log(view)
+        console.log("View:", view)
     }, [view])
 
     return (
