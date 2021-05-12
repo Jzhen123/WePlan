@@ -11,12 +11,13 @@ export const GroupHelper = () => {
     const history = useHistory();
     const { index } = useAuth();
     
-    function createGroup(groupData) {
+    function createGroup(groupData, customFailureMethod) {
         axiosHelper({
             data: groupData,
             method: 'post',
             url: '/api/group/create',
-            successMethod: index
+            successMethod: index,
+            failureMethod: customFailureMethod,
         })
     }
 
@@ -28,12 +29,16 @@ export const GroupHelper = () => {
 
     // }
 
-    // function addMember(){
-
-    // }
+    function invite(formData) {
+        axiosHelper({
+            data: formData,
+            method: 'post',
+            url: '/api/group/invite',
+        })
+    }
     
 
-    return { createGroup }
+    return { createGroup, invite }
 }
 
 export const GroupProvider = (props) => {

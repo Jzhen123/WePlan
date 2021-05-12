@@ -1,29 +1,41 @@
-/* .fc-toolbar { */
-    /* max-height: 3vh; */
-    /* position: fixed; */
-    /* top: 2.5vh;
-    left: 45vw; */
-    /* margin-top: 1vh; */
-/* } */
+.fc-header-toolbar {
+   position: absolute;
+   top: 0vh;
+   left: 0vw;
+   width: 1px;
+   height: 1px;
+}
 
-.fc {
-    max-width: 81vw;
-    max-height: 93vh;
-    /* margin-top: 0; */
-    /* margin: auto; */
+.fc-toolbar-title {
+   visibility: hidden;
  }
-
- /* .fc-toolbar-title {
-    position: relative;
- }
-
+ 
  .fc-today-button {
-    position: absolute;
-    right: 630px;
-    top: -15px;
+    visibility: hidden;
  }
+ .fc-prev-button {
+   visibility: hidden;
+}
+.fc-next-button {
+   visibility: hidden;
+}
 
- .fc-button-group {
-    position: absolute;
-    right: 510px;
- } */
+.fc-dayGridMonth-button {
+      visibility: hidden;
+}
+
+.fc-timeGridWeek-button {
+   visibility: hidden;
+}
+
+.fc-timeGridDay-button {
+   visibility: hidden;
+}
+
+.fc--button {
+   visibility: hidden;
+}
+.fc-view-harness {
+    max-height: 93.5vh;
+    max-width: 83.3vw;
+ }
