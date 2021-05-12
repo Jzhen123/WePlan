@@ -50,11 +50,12 @@ const PlanForm = ({ data }) => {
                     <div className="row mb-3">
                         <div class="form-floating mb-3 col-6">
                             <input type="text" class="form-control" name="name" onChange={(e) => handleChange(e)} id="nameInput" placeholder="name@example.com" />
-                            <label className="ps-4" for="nameInput">Name</label>
+                            <label className="ps-4" for="nameInput">Event Name</label>
                             <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.name ? 'visible' : 'hidden' }}>{formState.errors.name}</div>
                         </div>
                         <div class="form-floating mb-3 col-6">
                             <select className="form-select p-0 ps-3 pt-1">
+                            <option selected value="Choose Group">Choose Group</option>
                                 {userData.groups.map((group, index) => {
                                     return (
                                         <option key={index} value={group.name}>{group.name}</option>
@@ -81,7 +82,7 @@ const PlanForm = ({ data }) => {
                     </div>
 
                     {/* Month/Year of Event */}
-                    <div className="row  mb-3 ">
+                    <div className="row mb-3 ">
                         <div class="form-floating mb-3 col-6">
                             <input type="text" class="form-control" id="monthInput" name="month" defaultValue={formState.values.month} />
                             <label className="ps-4" for="monthInput">Month</label>

@@ -3,19 +3,13 @@ import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
-import calendarReducer from '../utilities/reducers/calendarReducer';
 import { useCalendar } from '../utilities/CalendarContext';
 import PlanForm from './PlanForm';
 import Modal from './Modal';
 
-const initialCalendarState = {
-    newEvent: {}
-}
-
 function Calendar() {
 
-    const [calendarState, dispatch] = useReducer(calendarReducer, initialCalendarState);
-    const { createEvent } = useCalendar();
+    const { createEvent, calendarState, dispatch } = useCalendar();
     const modal = useRef(null);
 
     return (
