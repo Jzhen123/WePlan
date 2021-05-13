@@ -162,33 +162,31 @@ export default function formReducer(state, action) {
 
                     tempState.errors.email = "Invite was unsuccessful."
                     return tempState;
-                }
-        case "CREATE EVENT":
+            }
+        case "CREATE EVENT": // Reducer cases for Create Event form
             switch (action.type) {
                 case "onChange":
-                tempState.values[action.field] = action.payload
-                console.log(action.field)
-                return tempState;
+                    tempState.values[action.field] = action.payload
+                    return tempState;
                 case "onSubmit": // Checking for submit errors and then allows user to submit
-                tempState.errors = {};
+                    tempState.errors = {};
 
-                if (!tempState.values.name) { tempState.errors.name = 'Name is required';}
-                if (!tempState.values.groupName) { tempState.errors.groupName = "Group is required";} 
-                if (!tempState.values.dayNumber) { tempState.errors.dayNumber = "Day required"} 
-                else if (!(Number.isInteger(parseInt(tempState.values.dayNumber)))) {tempState.errors.dayNumber = "Must be in number format"}
-                if (!tempState.values.hour) { tempState.errors.hour = "Must have a Start Time!"} 
-                else if (!/(?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d)/.test(tempState.values.hour)) { tempState.errors.hour = "Time must follow HH:MM:SS format"}
-                if (!tempState.values.endTime) { tempState.errors.endTime = "Must have a End Time!"}
-                else if (!/(?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d)/.test(tempState.values.endTime)) { tempState.errors.endTime = "Time must follow HH:MM:SS format"}
-                if (!tempState.values.year) { tempState.errors.endTime = "Must have a Year"}
+                    if (!tempState.values.name) { tempState.errors.name = 'Name is required'; }
+                    if (!tempState.values.groupName) { tempState.errors.groupName = "Group is required"; }
+                    if (!tempState.values.dayNumber) { tempState.errors.dayNumber = "Day required" }
+                    else if (!(Number.isInteger(parseInt(tempState.values.dayNumber)))) { tempState.errors.dayNumber = "Must be in number format" }
+                    if (!tempState.values.hour) { tempState.errors.hour = "Must have a Start Time!" }
+                    else if (!/(?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d)/.test(tempState.values.hour)) { tempState.errors.hour = "Time must follow HH:MM:SS format" }
+                    if (!tempState.values.endTime) { tempState.errors.endTime = "Must have a End Time!" }
+                    else if (!/(?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d)/.test(tempState.values.endTime)) { tempState.errors.endTime = "Time must follow HH:MM:SS format" }
+                    if (!tempState.values.year) { tempState.errors.endTime = "Must have a Year" }
 
-                if (Object.keys(tempState.errors).length === 0 && tempState.values.name.length > 0) {
-                    tempState.canSubmit = true
-                }
-
-                return tempState
+                    if (Object.keys(tempState.errors).length === 0 && tempState.values.name.length > 0) {
+                        tempState.canSubmit = true
+                    }
+                    return tempState
             }
-                default:
+        default: // Default if no formType match
             return state;
     }
 }

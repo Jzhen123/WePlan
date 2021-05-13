@@ -93,7 +93,7 @@ export const AuthHelper = () => {
             successMethod: destroyToken,
             token
         })
-        .then(history.push("/login"));
+            .then(history.push("/login"));
     }
 
     // Retrieve User Data
@@ -104,7 +104,7 @@ export const AuthHelper = () => {
             successMethod: saveUserData,
             token
         })
-        if (document.getElementById("click")){
+        if (document.getElementById("click")) {
             document.getElementById("click").click()
         }
     }

@@ -1,35 +1,29 @@
-import React, { useReducer, useEffect, useRef } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { useAuth } from '../utilities/AuthContext';
 import { useCalendar } from '../utilities/CalendarContext';
-import { useGroup } from "../utilities/GroupContext"
 import formReducer from '../utilities/reducers/formReducer';
 
+// Plan Form Component that checks for simple validation before posting data to my API route
 const PlanForm = ({ data }) => {
-    var months = {
-        'Jan' : '01',
-        'Feb' : '02',
-        'Mar' : '03',
-        'Apr' : '04',
-        'May' : '05',
-        'Jun' : '06',
-        'Jul' : '07',
-        'Aug' : '08',
-        'Sep' : '09',
-        'Oct' : '10',
-        'Nov' : '11',
-        'Dec' : '12'
+    var months = { // Lazy way to get number values based on month abbreviation
+        'Jan': '01',
+        'Feb': '02',
+        'Mar': '03',
+        'Apr': '04',
+        'May': '05',
+        'Jun': '06',
+        'Jul': '07',
+        'Aug': '08',
+        'Sep': '09',
+        'Oct': '10',
+        'Nov': '11',
+        'Dec': '12'
     }
-    // {
-    //     id: '1',
-    //     title: 'Demo Day!',
-    //     start: '2021-05-13T13:00:00-04:00',
-    //     end: '2021-05-13T14:30:00-04:00'
-    // }
-    const initialFormState = {
-        formType: "CREATE EVENT",
+
+    const initialFormState = { // Initial State for my Plan/Event form 
+        formType: "CREATE EVENT", // Identifier for my formReducer
         values: {
-            // dayName: data.newEvent.DayName,
             groupName: "",
             dayNumber: data.newEvent.DayNumber,
             hour: data.newEvent.StartHour,
@@ -40,11 +34,14 @@ const PlanForm = ({ data }) => {
         errors: {},
         canSubmit: false,
     }
-    const { userData } = useAuth();
-    const { calendarState } = useCalendar();
-    const history = useHistory();
-    const [formState, dispatch] = useReducer(formReducer, initialFormState);
 
+    const [formState, dispatch] = useReducer(formReducer, initialFormState); // useReducer that all my forms use
+    const { userData } = useAuth(); // Custom OAuth hook
+    const { calendarState } = useCalendar(); // Custom Calendar hook
+    const history = useHistory();
+
+    // Temporary way of allowing Form Submits. Need to set up more Contexts/Reducers/Actions to make this smooth.
+    // This is adding a very specifc data format needed to render events on Calendar component
     useEffect(() => {
         if (formState.canSubmit === true) {
             let timeZone = formState.values.timeZone.split('GMT-').join('');
@@ -54,19 +51,18 @@ const PlanForm = ({ data }) => {
                 start: `${formState.values.year}-${months[formState.values.month]}-${formState.values.dayNumber}T${formState.values.hour}-${timeZone}`,
                 end: `${formState.values.year}-${months[formState.values.month]}-${formState.values.dayNumber}T${formState.values.endTime}-${timeZone}`,
             })
-            if (document.getElementById("click")){
+            if (document.getElementById("click")) {
                 document.getElementById("click").click()
             }
             history.push('/')
         }
-
     }, [formState])
 
-    const handleChange = (e) => {
+    const handleChange = (e) => { // Dispatches form data to my form reducer onChange
         dispatch({ formType: formState.formType, type: "onChange", field: e.target.name, payload: e.target.value, })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e) => { // Dispatches form data to my form reducer onSubmit
         if (e) e.preventDefault();
         dispatch({ formType: formState.formType, type: "onSubmit", })
     }
@@ -129,6 +125,8 @@ const PlanForm = ({ data }) => {
                             <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.year ? 'visible' : 'hidden' }}>{formState.errors.year}</div>
                         </div>
                     </div>
+
+                    {/* Submit Plan Form */}
                     <button type="submit" className="btn btn-primary col-12">Plan!</button>
                 </form>
             </div>
