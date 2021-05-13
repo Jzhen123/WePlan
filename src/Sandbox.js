@@ -13,13 +13,14 @@ const initialFormState = {
     errors: {},
 }
 
+// Used to test any new features/concepts. Was very useful for learning useReducer
 function Sandbox() {
 
     const [formState, dispatch] = useReducer(formReducer, initialFormState);
     const { register } = useAuth();
 
     useEffect(() => {
-        console.log(formState)
+        // console.log(formState)
     }, [formState])
 
     const handleChange = (e) => {

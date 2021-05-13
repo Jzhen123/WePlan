@@ -8,28 +8,37 @@ import Calendar from '../components/Calendar';
 import { useCalendar } from '../utilities/CalendarContext';
 import { useHistory } from 'react-router';
 
+// Main View when the user logs in
 function Dashboard() {
-    const { userData, view, setView } = useAuth();
-    const modal = useRef(null);
-    const { calendarState } = useCalendar();
+
+    const { userData, view, setView } = useAuth(); // Custom OAuth Hook
+    const modal = useRef(null); // Initialize Modal Component
+    const { calendarState } = useCalendar(); // Custom Calendar Hook
     const history = useHistory();
 
     useEffect(() => {
-        console.log("View:", view)
+        // console.log("View:", view)
     }, [view, history, calendarState])
 
     return (
         <>
+            {/* Navbar Component */}
             <Navbar />
             <div className="container-fluid">
                 {userData.name ? // Conditionally Rendering Dashboard until User Data is retrieved
                     <>
                         <div className="row">
+
+                            {/* Menu/Group List */}
                             <div className="col-2 p-4 pt-2">
                                 <div className="row mb-3">
+
+                                    {/* Menu Header */}
                                     <div className="col-10">
                                         <h2 className="mb-1 pt-1">Groups</h2>
                                     </div>
+
+                                    {/* Button for Creating Groups */}
                                     <div className="col-2 text-center">
                                         <div onClick={() => modal.current.open()} style={{ fontSize: '3.25vh', cursor: 'pointer' }}>+</div>
                                     </div>

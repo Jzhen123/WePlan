@@ -3,27 +3,31 @@ import { useAuth } from '../utilities/AuthContext';
 import Modal from './Modal'
 import PlanForm from './PlanForm';
 
+// Dashboard Navbar that cleverly references FullCalendars buttons. I could not do much custom CSS to their
+// toolbar so I made buttons that referenced their built in onClick functions 
 function Navbar() {
-    const { logout, userData, setView } = useAuth();
-    const [header, setHeader] = useState("");
-    const modal = useRef(null);
 
-    useEffect(() => {
+    const { logout, userData, setView } = useAuth(); // custom OAuth Hook
+    const [header, setHeader] = useState(""); // Sets our header to fullCalendar's header
+    const modal = useRef(null); // Initialize Modal Ref
+
+    useEffect(() => { // Wanted to welcome User's when they logged in. However, it does not work and the data overrides
         if (userData.name) {
             setHeader(`What will we plan today ${userData.name}?`)
         }
     }, [userData.name])
 
-    useEffect(() => {
+    useEffect(() => { // Changes our header to whatever fullCalendar's header is
         let title = (document.getElementsByClassName("fc-toolbar-title"))[0];
         if (title) { setHeader(title.innerHTML); }
     }, [header])
 
-    // Mimicing fullCalendars toolbar functionality but will any styling I want.
+    // Mimicing fullCalendars toolbar functionality but with any styling I want.
     const toggleFullCalendarView = (event) => {
-        let viewSelect = document.getElementById("viewSelect");
-        let currentView = viewSelect.options[viewSelect.selectedIndex].value;
+        let viewSelect = document.getElementById("viewSelect"); // My view select
+        let currentView = viewSelect.options[viewSelect.selectedIndex].value; // Current value of select tag
 
+        // Essentially this is my buttons replicating the real button's functionality
         if (currentView === "Day") {
             (document.getElementsByClassName("fc-timeGridDay-button"))[0].click();
         } else if (currentView === "Week") {
