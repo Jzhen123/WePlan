@@ -44,27 +44,39 @@ function Register({ toggleView }) {
 
     return (
         <div className="row justify-content-md-center">
+
+            {/* Button to go back to Login Form */}
             <h5 className="pt-2 pb-3" onClick={toggleView}><Link>&lt;- Back to Log in</Link></h5>
             <div className="col-10 card p-5">
+
+                {/* Form Header */}
                 <h1 className="mb-2">Create your account</h1>
+
+                {/* Form Body */}
                 <form onSubmit={handleSubmit} >
+
+                        {/* User's Name Input */}
                     <div class="form-floating mb-3 col-12">
                         <input type="text" class="form-control" name="name" onChange={(e) => handleChange(e)} id="nameInput" placeholder="name@example.com" />
                         <label for="nameInput">Name</label>
                         <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.name ? 'visible' : 'hidden' }}>{formState.errors.name}</div>
                     </div>
 
+                    {/* User's Email Input */}
                     <div class="form-floating mb-3 col-12">
                         <input type="text" class="form-control" name="email" onChange={(e) => handleChange(e)} id="emailInput" placeholder="name@example.com" />
                         <label for="emailInput">Email address</label>
                         <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.email ? 'visible' : 'hidden' }}>{formState.errors.email}</div>
                     </div>
 
+                    {/* User's Password Input */}
                     <div class="form-floating mb-3 col-12">
                         <input type="password" class="form-control" name="password" onChange={(e) => handleChange(e)} id="passwordInput" placeholder="Password" />
                         <label for="passwordInput">Password</label>
                         <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.password ? 'visible' : 'hidden' }}>{formState.errors.password}</div>
                     </div>
+
+                    {/* Submit Register Form */}
                     <button type="submit" className="btn btn-primary col-12">Sign Up</button>
                 </form>
             </div>

@@ -1,3 +1,5 @@
+/* Hiding all of FullCalendar's toolbar buttons but still allowing me to use their functions */
+/* Very Cheeky */
 .fc-header-toolbar {
    position: absolute;
    top: 0vh;
