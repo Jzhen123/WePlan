@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../utilities/AuthContext';
 import formReducer from '../utilities/reducers/formReducer';
 
-const initialFormState = {
-    formType: "REGISTER",
+const initialFormState = { // Initial State for my Register form 
+    formType: "REGISTER", // Identifier for my formReducer
     values: {
         name: "",
         email: "",
@@ -14,11 +14,13 @@ const initialFormState = {
     canSubmit: false,
 }
 
+// Register Form Component that checks for simple validation before posting data to my API route
 function Register({ toggleView }) {
 
-    const [formState, dispatch] = useReducer(formReducer, initialFormState);
-    const { register } = useAuth();
+    const [formState, dispatch] = useReducer(formReducer, initialFormState); // useReducer that all my forms use
+    const { register } = useAuth(); // Custom OAuth hook
 
+    // Temporary way of allowing Form Submits. Need to set up more Contexts/Reducers/Actions to make this smooth.
     useEffect(() => {
         if (formState.canSubmit === true) {
             register(formState, failedRegister)
@@ -41,32 +43,32 @@ function Register({ toggleView }) {
     }
 
     return (
-            <div className="row justify-content-md-center">
+        <div className="row justify-content-md-center">
             <h5 className="pt-2 pb-3" onClick={toggleView}><Link>&lt;- Back to Log in</Link></h5>
-                <div className="col-10 card p-5">
-                    <h1 className="mb-2">Create your account</h1>
-                    <form onSubmit={handleSubmit} >
-                        <div class="form-floating mb-3 col-12">
-                            <input type="text" class="form-control" name="name" onChange={(e) => handleChange(e)} id="nameInput" placeholder="name@example.com" />
-                            <label for="nameInput">Name</label>
-                            <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.name ? 'visible' : 'hidden' }}>{formState.errors.name}</div>
-                        </div>
+            <div className="col-10 card p-5">
+                <h1 className="mb-2">Create your account</h1>
+                <form onSubmit={handleSubmit} >
+                    <div class="form-floating mb-3 col-12">
+                        <input type="text" class="form-control" name="name" onChange={(e) => handleChange(e)} id="nameInput" placeholder="name@example.com" />
+                        <label for="nameInput">Name</label>
+                        <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.name ? 'visible' : 'hidden' }}>{formState.errors.name}</div>
+                    </div>
 
-                        <div class="form-floating mb-3 col-12">
-                            <input type="text" class="form-control" name="email" onChange={(e) => handleChange(e)} id="emailInput" placeholder="name@example.com" />
-                            <label for="emailInput">Email address</label>
-                            <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.email ? 'visible' : 'hidden' }}>{formState.errors.email}</div>
-                        </div>
+                    <div class="form-floating mb-3 col-12">
+                        <input type="text" class="form-control" name="email" onChange={(e) => handleChange(e)} id="emailInput" placeholder="name@example.com" />
+                        <label for="emailInput">Email address</label>
+                        <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.email ? 'visible' : 'hidden' }}>{formState.errors.email}</div>
+                    </div>
 
-                        <div class="form-floating mb-3 col-12">
-                            <input type="password" class="form-control" name="password" onChange={(e) => handleChange(e)} id="passwordInput" placeholder="Password" />
-                            <label for="passwordInput">Password</label>
-                            <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.password ? 'visible' : 'hidden' }}>{formState.errors.password}</div>
-                        </div>
-                        <button type="submit" className="btn btn-primary col-12">Sign Up</button>
-                    </form>
-                </div>
+                    <div class="form-floating mb-3 col-12">
+                        <input type="password" class="form-control" name="password" onChange={(e) => handleChange(e)} id="passwordInput" placeholder="Password" />
+                        <label for="passwordInput">Password</label>
+                        <div style={{ color: '#cc0000', height: '2vh', visibility: formState.errors.password ? 'visible' : 'hidden' }}>{formState.errors.password}</div>
+                    </div>
+                    <button type="submit" className="btn btn-primary col-12">Sign Up</button>
+                </form>
             </div>
+        </div>
     );
 }
 
